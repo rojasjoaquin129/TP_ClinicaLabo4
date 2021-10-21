@@ -12,7 +12,10 @@
           <input type="password" class="form-control" id="password" placeholder="Password"  name="password">
           <label for="password">Password</label>
         </div>
-        <small class="text-danger" *ngIf="mostrarError">El email o la contraseña son incorrectas</small>
+        <!--
+<small class="text-danger" *ngIf="mostrarError">El email o la contraseña son incorrectas</small>
+        -->
+
         <button class="w-100 btn btn-lg btn-primary mt-4" (click)="ingresar()">Ingresar</button>
       </form>
   </section>

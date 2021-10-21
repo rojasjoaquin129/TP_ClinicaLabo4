@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/classes/usuario';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +20,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public ingresar() {}
+  public ingresar() {
+    Swal.fire({
+      icon: 'error',
+      title: 'no tengo la instalacion echa de firebase',
+      text: 'solo esta maquetado , perdon pero me lastime la mano hace dos dias :(',
+      footer: '<a href="">Why do I have this issue?</a>'
+    })
+    this.mostrarError=true;
+  }
     // this.authService.singIn(this.usuario).then(
     //   usuario=>{
     //     this.authService.estaLogeado=true;
