@@ -1,0 +1,17 @@
+.container {
+  max-width: 900px;
+  padding: 50px;
+
+  /* SHADOW */
+  -webkit-box-shadow: 2px 2px 32px -6px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 2px 2px 32px -6px rgba(0, 0, 0, 0.6);
+  box-shadow: 2px 2px 32px -6px rgba(0, 0, 0, 0.6);
+}
+h1 {
+  font-size: 37px;
+}
+
+.aparte {
+  display: flex;
+  flex-wrap: wrap;
+}

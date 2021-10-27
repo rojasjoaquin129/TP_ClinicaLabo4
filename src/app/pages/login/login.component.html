@@ -1,22 +1,74 @@
 <main class="text-center">
   <section class="form-signin page-wrap">
-      <form>
+      <form [formGroup]="loginFrom" (ngSubmit)="ingresar()" #formulario='ngForm'    novalidate >
         <img class="mb-4" src="../../../assets/reporte.png" alt="" width="72" height="72">
         <h1 class="h3 mb-3 fw-normal">Login</h1>
 
         <div class="form-floating">
-          <input type="email" class="form-control" id="email" placeholder="name@example.com"  name="email">
+          <input type="email" class="form-control" id="email"    name="email" formControlName="email"
+          [ngClass]="{'is-invalid':( email.invalid && email.touched) , 'is-valid':email.valid}">
           <label for="email">Email</label>
+          <span span class="invalid-feedback" *ngIf="email.errors?.required && email.touched">
+            El campo email esta vacio.
+          </span>
+          <span  span class="invalid-feedback" *ngIf="!email.valid && !email.errors?.required && (email.dirty || email.touched) " >
+            El Email no es valido.
+          </span>
         </div>
+        <br>
         <div class="form-floating mb-2">
-          <input type="password" class="form-control" id="password" placeholder="Password"  name="password">
+          <input type="password" class="form-control" id="password"  formControlName="password"
+          [ngClass]="{'is-invalid':( password.invalid && password.touched) , 'is-valid':password.valid}" name="password">
           <label for="password">Password</label>
+
+        <span class="invalid-feedback"*ngIf=" password.errors?.required &&  password.touched">
+          El campo password esta vacio
+        </span>
+
+        <span class="invalid-feedback"*ngIf=" password.invalid &&  password.errors?.minLength && (password.dirty || password.touched)">
+          El campo password tiene q tener 6 digitos por lo menos
+        </span>
         </div>
         <!--
 <small class="text-danger" *ngIf="mostrarError">El email o la contraseña son incorrectas</small>
         -->
 
-        <button class="w-100 btn btn-lg btn-primary mt-4" (click)="ingresar()">Ingresar</button>
+
+
+
+        <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" [disabled]="!formulario.form.valid" >Ingresar</button>
+
       </form>
+      <div class="opa mt-4" >
+        <div style="  display: flex;justify-content: space-between;" class="ml-1 mr-1" >
+          <div>
+            <img src="../../../assets/pacienteUnouno.jpg"  (click)="acceder('pacienteUno')" class='imgRedonda ml-1 mr-1'alt="">
+            <p>Paciente Uno</p>
+          </div>
+          <div>
+            <img src="../../../assets/pacienteDosuno.jpg" (click)="acceder('pacienteDos')" class='imgRedonda ml-1 mr-1'alt="pacienteuno">
+            <p>Paciente Dos</p>
+          </div>
+          <div>
+            <img src="../../../assets/pacienteTresuno.jpg" (click)="acceder('pacienteTres')"class='imgRedonda ml-1 mr-1' alt="">
+            <p>Paciente Tres</p>
+          </div>
+          <div>
+            <img src="../../../assets/especialistaUno.webp"(click)="acceder('especialistaUno')" class='imgRedonda ml-1 mr-1' alt="">
+            <p>Especialista Uno</p>
+          </div>
+          <div>
+            <img src="../../../assets/especialistaDos.jpg"(click)="acceder('especialistaDos')" class='imgRedonda ml-1 mr-1' alt="">
+            <p>Especialista Dos</p>
+          </div>
+         <div>
+           <img src="../../../assets/administrador.jpg" (click)="acceder('admin')"class='imgRedonda ml-1 mr-1' alt="">
+           <p>Administrador</p>
+         </div>
+        </div>
+      </div>
+
   </section>
+
 </main>
+

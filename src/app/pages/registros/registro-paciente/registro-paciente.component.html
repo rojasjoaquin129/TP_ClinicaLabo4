@@ -1,6 +1,8 @@
-<br>
-<div class="container">
-    <form   (ngSubmit)="aceptar()">
+<div *ngIf="admin">
+  <app-navbar></app-navbar>
+</div>
+<div class="container mt-5">
+    <form  [formGroup]="formulario" (ngSubmit)="aceptar()">
         <div class="row">
             <div class="col-md-12 mb-5">
                 <h2><b>Registro Paciente</b></h2>
@@ -27,10 +29,10 @@
             </div>
             <div class="col-md-6 mb-3">
 
-              <label for="apellido" class="form-label">DNI</label>
-              <input type="text" class="form-control" id="apellido" placeholder="Ingrese DNI" formControlName="apellido">
-              <small class="invalid" *ngIf="formulario.get('apellido')?.errors?.required && formulario.get('apellido')?.touched ">
-                  El apellido es requerido
+              <label for="dni" class="form-label">DNI</label>
+              <input type="text" class="form-control" id="dni" placeholder="Ingrese DNI" formControlName="dni">
+              <small class="invalid" *ngIf="formulario.get('dni')?.errors?.required && formulario.get('dni')?.touched ">
+                  El DNI es requerido
               </small>
 
           </div>
@@ -51,40 +53,40 @@
             <div class="col-md-6 mb-3">
 
               <label for="apellido" class="form-label">Obra Social</label>
-              <input type="text" class="form-control" id="apellido" placeholder="Ingrese apellido" formControlName="apellido">
-              <small class="invalid" *ngIf="formulario.get('apellido')?.errors?.required && formulario.get('apellido')?.touched ">
-                  El apellido es requerido
+              <input type="text" class="form-control" id="apellido" placeholder="Ingrese Obra Social" formControlName="obraSocial">
+              <small class="invalid" *ngIf="formulario.get('obraSocial')?.errors?.required && formulario.get('obraSocial')?.touched ">
+                  la Obra Social es requerida
               </small>
 
           </div>
             <div class="col-md-6 mb-3">
 
               <label for="apellido" class="form-label">Email</label>
-              <input type="text" class="form-control" id="apellido" placeholder="Ingrese apellido" formControlName="apellido">
-              <small class="invalid" *ngIf="formulario.get('apellido')?.errors?.required && formulario.get('apellido')?.touched ">
-                  El apellido es requerido
+              <input type="text" class="form-control" id="apellido" placeholder="Ingrese Email" formControlName="email">
+              <small class="invalid" *ngIf="formulario.get('email')?.errors?.required && formulario.get('email')?.touched ">
+                  El email es requerido
               </small>
 
           </div>
           <div class="col-md-6 mb-3">
 
             <label for="apellido" class="form-label">Password</label>
-            <input type="password" class="form-control" id="apellido" placeholder="Ingrese apellido" formControlName="apellido">
-            <small class="invalid" *ngIf="formulario.get('apellido')?.errors?.required && formulario.get('apellido')?.touched ">
-                El apellido es requerido
+            <input type="password" class="form-control" id="apellido" placeholder="Ingrese contraseña" formControlName="password">
+            <small class="invalid" *ngIf="formulario.get('password')?.errors?.required && formulario.get('password')?.touched ">
+                El password es requerido
             </small>
 
         </div>
 
 
             <div class="col-md-6">
-              <label for="foto" class="form-label">Foto 1</label>
-              <input class="form-control" type="file" id="foto">
+              <label for="foto" class="form-label" >Foto 1</label>
+              <input class="form-control" type="file"  (change)="subirArchivo($event)"  accept="image/png,image/jpeg" formControlName="foto" id="foto">
             </div>
 
             <div class="col-md-6">
               <label for="foto" class="form-label">Foto 2</label>
-              <input class="form-control" type="file" id="foto">
+              <input class="form-control"  accept="image/png,image/jpeg"  (change)="subirArchivoDos($event)"formControlName="fotoDos" type="file" id="foto">
             </div>
 
             <div class="col-md-12 mb-5">

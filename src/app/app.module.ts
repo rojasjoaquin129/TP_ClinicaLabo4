@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FirebaseModule } from './firebase/firebase.module';
+import { PagesModule } from './pages/pages.module';
+
 
 
 @NgModule({
@@ -11,12 +14,15 @@ import { AppComponent } from './app.component';
     AppComponent,
 
 
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    PagesModule,
+    FirebaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

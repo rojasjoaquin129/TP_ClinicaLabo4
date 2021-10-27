@@ -10,9 +10,28 @@
               <li class="nav-item">
                   <a class="nav-link active" aria-current="page" routerLink="../home">Home</a>
               </li>
+              <li class="nav-item" *ngIf="(tipo=='admin')">
+                <a class="nav-link active" aria-current="page" routerLink="../lista-pacientes">Pacientes</a>
+            </li>
+            <li class="nav-item" *ngIf="(tipo=='admin')">
+              <a class="nav-link active" aria-current="page" routerLink="../lista-especialistas">Especialistas</a>
+          </li>
+          <li class="nav-item" *ngIf="(tipo=='admin')">
+            <a class="nav-link active" aria-current="page" routerLink="../registro">Altas</a>
+        </li>
           </ul>
           <form class="d-flex">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <p style="color: white;"> {{nombre}}</p>
+              </li>
+              <br>
+              <li class="nav-item">
+                <p style="color: white;"> {{tipo}}</p>
+              </li>
+            </ul>
               <button class="btn btn-outline-danger" (click)="logOut()"><i class="bi bi-box-arrow-right"></i> Salir</button>
+
           </form>
       </div>
   </div>

@@ -1,7 +1,8 @@
-
-<br>
-<div class="container">
-    <form   (ngSubmit)="aceptar()">
+<div *ngIf="admin">
+  <app-navbar></app-navbar>
+</div>
+<div class="container mt-5">
+    <form [formGroup]="formulario"  (ngSubmit)="aceptar()">
         <div class="row">
             <div class="col-md-12 mb-5">
                 <h2><b>Registro Especialista</b></h2>
@@ -29,10 +30,13 @@
             <div class="col-md-6 mb-3">
 
               <label for="apellido" class="form-label">DNI</label>
-              <input type="text" class="form-control" id="apellido" placeholder="Ingrese DNI" formControlName="apellido">
-              <small class="invalid" *ngIf="formulario.get('apellido')?.errors?.required && formulario.get('apellido')?.touched ">
-                  El apellido es requerido
+              <input type="text" class="form-control" id="apellido" placeholder="Ingrese DNI" formControlName="dni">
+              <small class="invalid" *ngIf="formulario.get('dni')?.errors?.required && formulario.get('dni')?.touched ">
+                  El dni es requerido
               </small>
+              <small class="invalid" *ngIf="formulario.get('edad')?.errors?.minLength ||formulario.get('dni')?.errors?.maxLength && formulario.get('dni')?.touched  ">
+                el dni no es valido
+            </small>
 
           </div>
 
@@ -53,18 +57,18 @@
             <div class="col-md-6 mb-3">
 
               <label for="apellido" class="form-label">Email</label>
-              <input type="text" class="form-control" id="apellido" placeholder="Ingrese apellido" formControlName="apellido">
-              <small class="invalid" *ngIf="formulario.get('apellido')?.errors?.required && formulario.get('apellido')?.touched ">
-                  El apellido es requerido
+              <input type="text" class="form-control" id="apellido" placeholder="Ingrese Email" formControlName="email">
+              <small class="invalid" *ngIf="formulario.get('email')?.errors?.required && formulario.get('email')?.touched ">
+                  El email es requerido
               </small>
 
           </div>
           <div class="col-md-6 mb-3">
 
             <label for="apellido" class="form-label">Password</label>
-            <input type="password" class="form-control" id="apellido" placeholder="Ingrese apellido" formControlName="apellido">
-            <small class="invalid" *ngIf="formulario.get('apellido')?.errors?.required && formulario.get('apellido')?.touched ">
-                El apellido es requerido
+            <input type="password" class="form-control" id="apellido" placeholder="Ingrese contraseña" formControlName="password">
+            <small class="invalid" *ngIf="formulario.get('password')?.errors?.required && formulario.get('password')?.touched ">
+                El password es requerido
             </small>
 
         </div>
@@ -72,19 +76,19 @@
             <div class="col-md-6 mb-5">
 
                 <label for="juego" class="form-label"> Selecciona Especialidad &nbsp;&nbsp;</label>
-                <select class="form-select" id="juego" formControlName="juego">
-                    <option value="" selected="true">Seleccione uno</option>
-                    <option [value]="item" *ngFor="let item of especialidades" >{{item}}</option>
-                    <option (click)="cargarEspecialidad()" > Cargar Especialidad </option>
-                </select>
-                <small class="invalid" *ngIf="formulario.get('juego')?.errors?.required && formulario.get('juego')?.touched">
-                    El juego es requerido
-                </small>
+                <div *ngFor ="let especialidad of especialidades;let i=index">
+                  <label class="form-label" for="especialiad" >{{especialidad.nombre}}</label>
+                  <input type="checkbox" name="EspecialidadCheck" (change)="caputurarRadioEspecialidad($event)"  [value]="especialidad.nombre"   >
+                </div>
+                <button class="botonSubmit" type="button"  (click)="cargarEspecialidad()" >Agregar especialidad</button>
+
 
             </div>
-            <div class="col-md-6">
-              <label for="foto" class="form-label">Foto</label>
-              <input class="form-control" type="file" id="foto">
+            <div class="col-md-6 mb-5">
+              <label for="foto" class="form-label"  >Foto</label>
+              <input class="form-control" type="file"  accept="image/png,image/jpeg"   (change)="subirArchivo($event)"   formControlName="foto" id="foto">
+              <small class="invalid" *ngIf="formulario.get('foto')?.errors?.required && formulario.get('foto')?.touched ">La foto es requerida</small>
+
             </div>
 
 

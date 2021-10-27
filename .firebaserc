@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "fir-utn-996a3": {
+      "hosting": {
+        "clinica": [
+          "fir-utn-996a3"
+        ]
+      }
+    }
+  }
+}

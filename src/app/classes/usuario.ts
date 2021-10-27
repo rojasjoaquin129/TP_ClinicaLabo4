@@ -3,7 +3,7 @@ export class Usuario {
   public nombre = "";
   public email = "";
   public password = "";
-  public foto = "../../assets/user.png";
+  public foto = ""
 
   constructor() {
       this.id = Math.round(Math.random() * (100 - 1) + 1).toString();

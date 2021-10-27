@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Mail</th>
+      <th scope="col">Edad</th>
+      <th scope="col">Dni</th>
+      <th scope="col">ObraSocial</th>
+    </tr>
+  </thead>
+  <tbody  >
+    <tr *ngFor="let especialista of listaPacientes ,let i=index">
+      <th scope="row">{{especialista.nombre}}</th>
+      <td>{{especialista.apellido}}</td>
+      <td>{{especialista.mail}}</td>
+      <td>{{especialista.edad}}</td>
+      <td>{{especialista.dni}}</td>
+      <td>{{especialista.obraSocial}}</td>
+    </tr>
+  </tbody>
+</table>

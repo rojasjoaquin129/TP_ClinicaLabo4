@@ -1,0 +1,100 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+    <form [formGroup]="formulario"  (ngSubmit)="aceptar()">
+        <div class="row">
+            <div class="col-md-12 mb-5">
+                <h2><b>Registro Administrador</b></h2>
+            </div>
+        </div>
+        <div class="row formulario">
+            <div class="col-md-6 mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Ingrese nombre" formControlName="nombre">
+                <small class="invalid" *ngIf="formulario.get('nombre')?.errors?.required && formulario.get('nombre')?.touched">
+                    El nombre es requerido
+                </small>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="apellido" placeholder="Ingrese apellido" formControlName="apellido">
+                <small class="invalid" *ngIf="formulario.get('apellido')?.errors?.required && formulario.get('apellido')?.touched ">
+                    El apellido es requerido
+                </small>
+
+            </div>
+            <div class="col-md-6 mb-3">
+
+              <label for="apellido" class="form-label">DNI</label>
+              <input type="text" class="form-control" id="apellido" placeholder="Ingrese DNI" formControlName="dni">
+              <small class="invalid" *ngIf="formulario.get('dni')?.errors?.required && formulario.get('dni')?.touched ">
+                  El dni es requerido
+              </small>
+              <small class="invalid" *ngIf="formulario.get('edad')?.errors?.minLength ||formulario.get('dni')?.errors?.maxLength && formulario.get('dni')?.touched  ">
+                el dni no es valido
+            </small>
+
+          </div>
+
+
+            <div class="col-md-6 mb-3">
+
+                <label for="edad" class="form-label">Edad</label>
+                <input type="number" class="form-control" id="edad" placeholder="Ingrese edad" formControlName="edad">
+                <small class="invalid" *ngIf="formulario.get('edad')?.errors?.required && formulario.get('edad')?.touched ">
+                    La edad es requerida
+                </small>
+                <small class="invalid" *ngIf="formulario.get('edad')?.errors?.min || formulario.get('edad')?.errors?.max && formulario.get('edad')?.touched ">
+                    La edad debe ser entre 18 a 99 años
+                </small>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+              <label for="apellido" class="form-label">Email</label>
+              <input type="text" class="form-control" id="apellido" placeholder="Ingrese Email" formControlName="email">
+              <small class="invalid" *ngIf="formulario.get('email')?.errors?.required && formulario.get('email')?.touched ">
+                  El email es requerido
+              </small>
+
+          </div>
+          <div class="col-md-6 mb-3">
+
+            <label for="apellido" class="form-label">Password</label>
+            <input type="password" class="form-control" id="apellido" placeholder="Ingrese contraseña" formControlName="password">
+            <small class="invalid" *ngIf="formulario.get('password')?.errors?.required && formulario.get('password')?.touched ">
+                El password es requerido
+            </small>
+          </div>
+            <div class="col-md-6 mb-5">
+              <label for="foto" class="form-label"  >Foto</label>
+              <input class="form-control" type="file"  accept="image/png,image/jpeg"   (change)="subirArchivo($event)"   formControlName="foto" id="foto">
+              <small class="invalid" *ngIf="formulario.get('foto')?.errors?.required && formulario.get('foto')?.touched ">La foto es requerida</small>
+
+            </div>
+
+
+            <div class="col-md-12 mb-5">
+
+
+
+            </div>
+
+        </div>
+
+        <div class="row mt-4">
+
+
+            <div class="col-md-12 d-grid gap-2">
+
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="formulario.invalid" >
+                    Aceptar
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>

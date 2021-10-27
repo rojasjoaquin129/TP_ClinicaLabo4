@@ -30,3 +30,14 @@ main {
 .page-wrap {
   min-height: 100vh;
 }
+.imgRedonda {
+  width: 200px;
+  height: 200px;
+  border-radius: 150px;
+  border: 10px solid rgb(130, 195, 214);
+  cursor: pointer;
+}
+.opa {
+  right: 18%;
+  position: absolute;
+}

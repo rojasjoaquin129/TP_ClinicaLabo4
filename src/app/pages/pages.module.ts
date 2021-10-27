@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ComponentesModule } from '../components/componentes.module';
 import { RegistrosModule } from './registros/registros.module';
+import { NavbarComponent } from '../components/navbar/navbar.component';
 
 
 
@@ -16,7 +17,8 @@ import { RegistrosModule } from './registros/registros.module';
     LoginComponent,
     HomeComponent,
     ErrorComponent,
-    BienvenidoComponent
+    BienvenidoComponent,
+
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,7 @@ import { RegistrosModule } from './registros/registros.module';
     RouterModule,
     ComponentesModule,
     RegistrosModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class PagesModule { }

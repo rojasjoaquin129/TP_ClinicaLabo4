@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Mail</th>
+      <th scope="col">Edad</th>
+      <th scope="col">Dni</th>
+      <th scope="col">Especialidades</th>
+      <th scope="col">Habilitar Cuenta</th>
+    </tr>
+  </thead>
+  <tbody  >
+    <tr *ngFor="let especialista of listaEspecialista ,let i=index">
+      <th scope="row">{{especialista.nombre}}</th>
+      <td>{{especialista.apellido}}</td>
+      <td>{{especialista.mail}}</td>
+      <td>{{especialista.edad}}</td>
+      <td>{{especialista.dni}}</td>
+      <td>
+        <section>
+          <option *ngFor="let es of especialista.especialidad">{{es}}</option>
+        </section>
+      </td>
+      <td>
+        <div class="row">
+          <button class="btn btn-danger" *ngIf="especialista.enabled" (click)="changeEstado(especialista.id,false)" >Inhabilitar cuenta</button>
+          <button class="btn btn-success" *ngIf="!especialista.enabled" (click)="changeEstado(especialista.id,true)">Habilitar cuenta</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
