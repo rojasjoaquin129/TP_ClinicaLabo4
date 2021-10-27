@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
   }
   /*
   especialistaUno@especialista.com
@@ -46,13 +47,12 @@ export class LoginComponent implements OnInit {
   verificarEmail(email:string){
   let flag=false;
   if(email==='pacienteUno@paciente.com' ||email==='pacienteDos@paciente.com' || email==='pacienteTres@paciente.com'
-  ||email==='especilistaDos@especialista.com'||email==='especialistaUno@especialista.com'||email==='admin@admin.com' ){
+  ||email==='especilistaDos@especialista.com'||email==='especilistaUno@especialista.com'||email==='admin@admin.com' ){
     flag =true;
 
   }
   return flag
   }
-
 
   acceder(usuario:string){
     let email;
@@ -83,57 +83,59 @@ export class LoginComponent implements OnInit {
   }
 
   async  ingresar() {
+   let flag=false;
+
 
     const{email,password}=this.loginFrom.value;
-
-    this.authService.singIn(email,password).then(
-      usuario=>{
-        this.authService.extraerUsuario(email);
-        localStorage.setItem('usuario',JSON.stringify(this.authService.usuario));
-        localStorage.setItem('tipo',this.authService.tipo);
-        if(!this.verificarEmail(email)){
-          if(this.authService.tipo==='especialista'){
-            if(usuario.user?.emailVerified && this.authService.usuario?.enabled){
-              this.router.navigate(['home']);
-            }else{
-              this.mensajeError('Especialista no  valido su email o no lo verifico el administrador');
-              this.loginFrom.reset();
-            }
-          }else if(usuario.user?.emailVerified){
+    let usuario=this.authService.extraerUsuario(email);
+    localStorage.setItem('usuario',JSON.stringify(usuario));
+    localStorage.setItem('tipo',this.authService.tipo);
+    if(!this.verificarEmail(email)){
+      this.authService.singIn(email,password).then(user=>{
+        if(localStorage.getItem('tipo')==='especialista'){
+          if(user.user?.emailVerified && usuario.enabled){
             this.router.navigate(['home']);
-          }else
-          {
+          }else{
+            this.mensajeError('Especialista no  valido su email o no lo verifico el administrador');
+            this.loginFrom.reset();
+          }
+        }else{
+          if(user.user?.emailVerified){
+            this.router.navigate(['home']);
+          }else{
             this.mensajeError('no valido su email');
             this.loginFrom.reset();
           }
-        }else if(this.authService.tipo==='especialista'){
-          if(this.authService.usuario?.enabled){
-            console.log(usuario);
-            this.router.navigate(['home']);
-          }else{
-            this.mensajeError('Especialista  no lo verifico el administrador');
+        }
+      }).catch(
+        error=>{
+          this.mostrarError=true;
+          if(error.code==='auth/wrong-password'){
+            this.mensajeError('La contraseña es incorrecta con ese correo');
             this.loginFrom.reset();
-
+          }else if(error.code==='auth/user-not-found'){
+            this.mensajeError('El usuario no esta Autenticado ni en la base de datos ');
+            this.loginFrom.reset();
           }
+        }
+      );
+    }else {
+        if(localStorage.getItem('tipo')==='especialista'){
+            if(usuario.enabled){
+              flag=true;
+            }else{
+              this.mensajeError('no tiene la verificacion del administrador');
+              }
         }else{
-          console.log(usuario);
-          this.router.navigate(['home']);
-        }
+          flag=true;
+          }
+    }
+    if(flag){
+      this.authService.singIn(email,password);
+      this.router.navigate(['home']);
+    }
 
-      }
-    ).catch(
-      error=>{
-        this.mostrarError=true;
 
-        if(error.code==='auth/wrong-password'){
-          this.mensajeError('La contraseña es incorrecta con ese correo');
-          this.loginFrom.reset();
-        }else if(error.code==='auth/user-not-found'){
-          this.mensajeError('El usuario no esta Autenticado ni en la base de datos ');
-          this.loginFrom.reset();
-        }
-      }
-    );
   }
 
   mensajeError(texto: string){

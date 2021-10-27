@@ -53,16 +53,21 @@ export class AuthService {
 
 
   extraerUsuario(email:string){
+    let usuario;
     if(this.SiEsUsuario(email,this.listaEspecialista)){
       this.usuario=this.chequearEspecialista(email);
+      usuario=this.usuario;
       this.tipo='especialista';
     }else if(this.SiEsUsuario(email,this.listaPacientes)){
       this.usuario=this.TraerUsuario(email,this.listaPacientes);
+      usuario=this.usuario
       this.tipo='paciente';
     }else{
       this.usuario=this.TraerUsuario(email,this.listaAdministradores);
       this.tipo='admin';
+      usuario=this.usuario
     }
+    return usuario;
   }
 
   traerTodoPaciente(){

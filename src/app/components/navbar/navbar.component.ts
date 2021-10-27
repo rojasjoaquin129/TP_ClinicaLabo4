@@ -28,7 +28,6 @@ export class NavbarComponent implements OnInit {
 
   this.usuario=JSON.parse(localStorage.getItem('usuario') as string) ;
   this.tipo=localStorage.getItem('tipo');
-  console.log(this.tipo);
   this.nombre= this.usuario.nombre+" "+this.usuario.apellido;
   }
 

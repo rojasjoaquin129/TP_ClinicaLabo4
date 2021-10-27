@@ -6,6 +6,7 @@ import { BienvenidoComponent } from './pages/bienvenido/bienvenido.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
 import { RegistroAdminComponent } from './pages/registros/registro-admin/registro-admin.component';
 import { RegistroEspecialistaComponent } from './pages/registros/registro-especialista/registro-especialista.component';
 import { RegistroPacienteComponent } from './pages/registros/registro-paciente/registro-paciente.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:'home', component:HomeComponent},
   {path:'lista-pacientes',component:ListaPacientesComponent},
   {path:'lista-especialistas',component:ListaEspecialistasComponent},
+  {path:'mis-turnos',component:MisTurnosComponent},
   {path:'registro',component:RegistrosComponent},
   {path:'registro-paciente',component:RegistroPacienteComponent},
   {path:'registro-especialista',component:RegistroEspecialistaComponent},

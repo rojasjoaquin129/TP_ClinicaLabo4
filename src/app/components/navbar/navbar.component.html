@@ -19,6 +19,13 @@
           <li class="nav-item" *ngIf="(tipo=='admin')">
             <a class="nav-link active" aria-current="page" routerLink="../registro">Altas</a>
         </li>
+        <li class="nav-item" *ngIf="(tipo=='paciente')">
+          <a class="nav-link active" aria-current="page" routerLink="../mis-turnos">misTurnos</a>
+      </li>
+      <li class="nav-item" *ngIf="(tipo==='especialista')">
+        <a class="nav-link active" aria-current="page" routerLink="../mis-turnos">misTurnos</a>
+    </li>
+
           </ul>
           <form class="d-flex">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">

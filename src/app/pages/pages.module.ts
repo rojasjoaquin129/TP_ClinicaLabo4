@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { ComponentesModule } from '../components/componentes.module';
 import { RegistrosModule } from './registros/registros.module';
 import { NavbarComponent } from '../components/navbar/navbar.component';
+import { MisTurnosComponent } from './mis-turnos/mis-turnos.component';
 
 
 
@@ -18,6 +19,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
     HomeComponent,
     ErrorComponent,
     BienvenidoComponent,
+    MisTurnosComponent,
 
   ],
   imports: [
