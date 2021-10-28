@@ -24,6 +24,7 @@ export class EspecialistasService {
   }));
   }
 
+
   getEspecialidades(){
     return this.especialidades;
    }

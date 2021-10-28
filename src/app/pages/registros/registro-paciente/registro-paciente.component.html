@@ -1,7 +1,9 @@
 <div *ngIf="admin">
   <app-navbar></app-navbar>
 </div>
-<div class="container mt-5">
+
+<br>
+<div class="container">
     <form  [formGroup]="formulario" (ngSubmit)="aceptar()">
         <div class="row">
             <div class="col-md-12 mb-5">
@@ -89,8 +91,7 @@
               <input class="form-control"  accept="image/png,image/jpeg"  (change)="subirArchivoDos($event)"formControlName="fotoDos" type="file" id="foto">
             </div>
 
-            <div class="col-md-12 mb-5">
-
+            <div class="col-md-6">
 
 
             </div>

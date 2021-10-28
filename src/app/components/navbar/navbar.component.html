@@ -1,6 +1,52 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
+    <!--
       <a class="navbar-brand"><img src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" width="30"></a>
+    -->
+    <div
+    class="
+      navbar-brand
+      p-0
+      mr-0
+      d-flex
+      justify-content-center
+      align-items-center
+      animate__animated animate__fadeIn
+    "
+  >
+    <!-- Implementar custom pipe cuando no haya foto (pipe image) -->
+    <img
+      style="border-radius: 50px"
+      [src]="this.usuario.fotoUno"
+      alt="User image"
+      width="55"
+      height="55"
+    />
+
+    <div style="margin-left: 0.5rem">
+      <span>
+        {{ this.usuario.nombre }}
+        {{ this.usuario.apellido }}
+      </span>
+      <h6 class="m-0">
+        <!-- Role -->
+        <span
+          class="badge w-50"
+          [ngClass]="{
+            'bg-success': this.tipo=='especialista' ,
+            'bg-info': this.tipo=='admin',
+            'bg-primary': this.tipo=='paciente'
+          }"
+          >{{
+            this.tipo
+          }}
+        </span>
+      </h6>
+    </div>
+  </div>
+
+
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -19,24 +65,20 @@
           <li class="nav-item" *ngIf="(tipo=='admin')">
             <a class="nav-link active" aria-current="page" routerLink="../registro">Altas</a>
         </li>
-        <li class="nav-item" *ngIf="(tipo=='paciente')">
+        <li class="nav-item" *ngIf="(tipo=='paciente' || tipo==='especialista')">
           <a class="nav-link active" aria-current="page" routerLink="../mis-turnos">misTurnos</a>
       </li>
-      <li class="nav-item" *ngIf="(tipo==='especialista')">
-        <a class="nav-link active" aria-current="page" routerLink="../mis-turnos">misTurnos</a>
-    </li>
+
+    <li class="nav-item" *ngIf="(tipo==='paciente' || tipo=='admin')">
+      <a class="nav-link active" aria-current="page" routerLink="../solicitar-turno">Solicitar Turno</a>
+  </li>
+    <li class="nav-item" >
+      <a class="nav-link active" aria-current="page" routerLink="../mi-perfil">Mi Perfil</a>
+  </li>
 
           </ul>
           <form class="d-flex">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <p style="color: white;"> {{nombre}}</p>
-              </li>
-              <br>
-              <li class="nav-item">
-                <p style="color: white;"> {{tipo}}</p>
-              </li>
-            </ul>
+
               <button class="btn btn-outline-danger" (click)="logOut()"><i class="bi bi-box-arrow-right"></i> Salir</button>
 
           </form>

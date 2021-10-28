@@ -1,0 +1,73 @@
+<app-spinner
+  [isLoading]="!this.listUsuarios"
+  [text]="'Cargando lista de usuarios'"
+></app-spinner>
+<div *ngIf="listUsuarios && Especialidad && listUsuarios.length===0" >
+  <h1> No hay especialistas para la especialidad de + {{Especialidad.nombre}}</h1>
+</div>
+<div *ngIf="listUsuarios && !Especialidad && listUsuarios.length===0">
+  <h1>
+    NO Hay USUARIOS
+  </h1>
+</div>
+
+<div class="mb-3 animate__animated animate__fadeIn" *ngIf="listUsuarios && listUsuarios.length !==0">
+  <h4
+    class="d-flex justify-content-between align-items-center mb-3" >
+      <span class="text-primary">Lista de {{tipo}}</span>
+      <span class="badge bg-primary rounded-pill">
+        {{ listUsuarios?.length }}
+      </span>
+    </h4>
+
+    <!-- Finder -->
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="busqueda"
+      placeholder="Buscar {{tipo}}"
+      (keyup)="this.filtrarUsuario()"
+    />
+  </div>
+  <div
+    *ngIf="this.listaCopiada"
+    class="overflow-auto"
+    [ngClass]="{ variantDefaultTableHeight: this.listaCopiada.length >= 3 }"
+  >
+    <ul class="list-group">
+      <li
+        class="
+          list-group-item list-group-item-action
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+        style="cursor: pointer"
+        [ngClass]="{ active: this.usuario?.dni === user.dni }"
+        *ngFor="let user of this.listaCopiada"
+        (click)="this.SeleccionarUsuario(user)"
+      >
+        <div
+          class="d-flex justify-content-start align-items-center"
+          style="flex: 1"
+        >
+          <img
+            class="me-3 rounded-circle"
+            [src]="user.fotoUno"
+            alt="User image"
+            width="55"
+            height="55"
+          />
+
+          <div>
+            <h6 class="my-0">{{ user.nombre }} {{ user.apellido }}</h6>
+            <h6 class="my-0">{{ user.mail }}</h6>
+          </div>
+        </div>
+  <span *ngIf="this.listaCopiada?.length === 0" class="list-group-item">
+    No existe el usuario
+  </span>
+    </ul>
+  </div>
+</div>

@@ -13,6 +13,7 @@ import Swal from 'sweetalert2'
 export class RegistroAdminComponent implements OnInit {
   public formulario!: FormGroup;
   imagenUno:any;
+  basePath = '/Admin'
   constructor(
     private frB :FormBuilder,
     private service: EspecialistasService,
@@ -29,15 +30,19 @@ export class RegistroAdminComponent implements OnInit {
       'email': ['', [Validators.required,Validators.email]]
     });
   }
-  subirArchivo(event:any){
-    const path ="Pacientes/"+this.formulario.value.email + "_Uno";
-    this.service.subirArchivo(event.target.value,path)
-    timer(3000).subscribe(()=>{
-      this.service.traerArchivo(path).subscribe(url=>{
-        this.imagenUno=url;
-        console.log(url);
-      });
+
+
+subirArchivo(event:any){
+  let file=event.target.files[0];
+  let nombre=this.formulario.value.dni+file.name;
+  const filePath = `${this.basePath}/${nombre}`;
+  this.service.subirArchivo(file,filePath);
+  timer(3000).subscribe(()=>{
+    this.service.traerArchivo(filePath).subscribe(url=>{
+      this.imagenUno=url;
+      console.log(url);
     });
+  });
 }
 /*
 this.nombre = n;

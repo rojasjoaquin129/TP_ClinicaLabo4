@@ -70,3 +70,11 @@ div .botones_resultados {
   color: #fff;
   background-color: rgb(123, 29, 29);
 }
+.fondo {
+  background: url("../../../../assets/blur-hospital.jpg") no-repeat center
+    center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

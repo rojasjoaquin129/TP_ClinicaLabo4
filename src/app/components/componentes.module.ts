@@ -5,6 +5,13 @@ import {  RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ListaEspecialistasComponent } from './lista-especialistas/lista-especialistas.component';
 import { ListaPacientesComponent } from './lista-pacientes/lista-pacientes.component';
+import { MiPerfilComponent } from './mi-perfil/mi-perfil.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { HorariosComponent } from './horarios/horarios.component';
+import { EspecialidadesComponent } from './especialidades/especialidades.component';
+import { FiltroDoctorComponent } from './filtro-doctor/filtro-doctor.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+
 
 
 
@@ -12,7 +19,14 @@ import { ListaPacientesComponent } from './lista-pacientes/lista-pacientes.compo
   declarations: [
     NavbarComponent,
     ListaEspecialistasComponent,
-    ListaPacientesComponent
+    ListaPacientesComponent,
+    MiPerfilComponent,
+    PerfilComponent,
+    HorariosComponent,
+    EspecialidadesComponent,
+    FiltroDoctorComponent,
+    SpinnerComponent,
+
   ],
   imports: [
     CommonModule,
@@ -20,7 +34,10 @@ import { ListaPacientesComponent } from './lista-pacientes/lista-pacientes.compo
     FormsModule
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
+    EspecialidadesComponent,
+    SpinnerComponent,
+    FiltroDoctorComponent
   ]
 })
 export class ComponentesModule { }

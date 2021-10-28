@@ -16,6 +16,7 @@ export class RegistroEspecialistaComponent implements OnInit {
   imagenUno:any;
   tipo:any
   admin=false;
+  basePath = '/Especialistas'
   constructor(private frB:FormBuilder,
               private service :EspecialistasService,
               private authServese:AuthService
@@ -97,7 +98,7 @@ export class RegistroEspecialistaComponent implements OnInit {
 
         })
         console.log(this.especialidades);
-        //this.service.AddEspecialidades(especi);
+        this.service.AddEspecialidades(especi);
       }
       else {
         Swal.fire({
@@ -112,10 +113,12 @@ export class RegistroEspecialistaComponent implements OnInit {
   }
 
   subirArchivo(event:any){
-    const path ="Pacientes/"+this.formulario.value.email + "_Uno";
-    this.service.subirArchivo(event.target.value,path)
+    let file=event.target.files[0];
+    let nombre=this.formulario.value.dni+file.name;
+    const filePath = `${this.basePath}/${nombre}`;
+    this.service.subirArchivo(file,filePath);
     timer(3000).subscribe(()=>{
-      this.service.traerArchivo(path).subscribe(url=>{
+      this.service.traerArchivo(filePath).subscribe(url=>{
         this.imagenUno=url;
         console.log(url);
       });

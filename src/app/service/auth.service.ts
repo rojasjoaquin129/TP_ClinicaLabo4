@@ -19,22 +19,24 @@ export class AuthService {
   public listaEspecialista:Especialistas[]=[];
   public listaPacientes:Pacientes[]=[];
   public listaAdministradores:Administradores[]=[];
+  public listaEs:any;
   usuario:any;
   tipo:any;
   public usuarioEntero:any;
   PacientesRef:AngularFirestoreCollection<Pacientes>;
   EspecialistasRef:AngularFirestoreCollection<Especialidad>;
   AdministradoresRef:AngularFirestoreCollection<Administradores>;
+  EspecialidadesRef:AngularFirestoreCollection<any>;
   constructor(public afAuth: AngularFireAuth ,
               private router:Router,
               public db:AngularFirestore,
               public storange: AngularFireStorage) {
 
-
+                this.EspecialidadesRef=this.db.collection('especialidades');
                 this.AdministradoresRef=this.db.collection('administradores');
                 this.EspecialistasRef=this.db.collection('especialistas');
                 this.PacientesRef=this.db.collection('paciente');
-
+                this.TraerTodoEspeci().subscribe(Especialidades=>this.listaEs=Especialidades);
                 this.traerTodoEspecialista().subscribe( usuarios=>this.listaEspecialista=usuarios);
                 this.traerTodoPacientes().subscribe(usuario=>this.listaPacientes=usuario);
                 this.traerTodoAdmin().subscribe(usuario=>this.listaAdministradores=usuario);
@@ -51,6 +53,9 @@ export class AuthService {
 
   }
 
+  getTodasEspecialidades(){
+    return this.listaEs;
+  }
 
   extraerUsuario(email:string){
     let usuario;
@@ -70,8 +75,31 @@ export class AuthService {
     return usuario;
   }
 
+  public async getEspecialistaPorEspecialidad(especialidad:Especialidad) {
+    return this.db
+      .collection('especialistas', (ref) =>
+        ref.where('especialidad', 'array-contains', especialidad.nombre)
+      )
+      .snapshotChanges()
+      .pipe(
+        map((actions: any) =>
+          actions.map((a: any) => {
+            const data = a.payload.doc.data() as object;
+            const uid = a.payload.doc.id;
+
+            return { uid, ...data };
+          })
+        )
+      );
+  }
+
+
+
   traerTodoPaciente(){
     return this.listaPacientes;
+  }
+  traerTodoDoctor(){
+    return this.listaEspecialista;
   }
   getEspecialistas(){
     return this.EspecialistasRef.snapshotChanges();
@@ -154,7 +182,9 @@ export class AuthService {
   traerTodoEspecialista(){
     return this.EspecialistasRef.valueChanges()as Observable<Especialistas[]>;
     }
-
+  TraerTodoEspeci(){
+      return this.EspecialidadesRef.valueChanges() as Observable<any[]>;
+    }
    chequearEspecialista(email:string , bandera?:string){
     let especialista
      for (let i = 0; i < this.listaEspecialista.length; i++) {

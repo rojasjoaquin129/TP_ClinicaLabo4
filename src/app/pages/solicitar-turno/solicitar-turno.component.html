@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+<div class="container py-4">
+  <div class="row">
+    <div class="col-md-6 my-3">
+      <div class="rounded-3">
+        <h2>Especialidad</h2>
+        <app-especialidades
+          (espSelec)="this.selecEspecialidad($event)"
+        ></app-especialidades>
+      </div>
+    </div>
+    <div class="col-md-6 my-3">
+      <div class="rounded-3">
+        <h2>Especialista</h2>
+
+        <app-filtro-doctor
+          *ngIf="this.seleccionoEspecialidad"
+          (usuarioSeleccionado)="this.SelecEspecialista($event)"
+          [Especialidad]="this.especialidad"
+
+        ></app-filtro-doctor>
+
+        <div *ngIf="!this.seleccionoEspecialidad">
+          Seleccione una especialidad para ver los especialistas disponibles...
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-md-6 my-3" *ngIf="tipo === 'admin'">
+      <div class="rounded-3">
+        <h2>Paciente</h2>
+
+        <app-filtro-doctor
+          (usuarioSeleccionado)="this.SeleccionarPaciente($event)"
+          [tipo]="('pacientes')"
+        ></app-filtro-doctor>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListaEspecialistasComponent } from './components/lista-especialistas/lista-especialistas.component';
 import { ListaPacientesComponent } from './components/lista-pacientes/lista-pacientes.component';
+import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { BienvenidoComponent } from './pages/bienvenido/bienvenido.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -11,6 +12,7 @@ import { RegistroAdminComponent } from './pages/registros/registro-admin/registr
 import { RegistroEspecialistaComponent } from './pages/registros/registro-especialista/registro-especialista.component';
 import { RegistroPacienteComponent } from './pages/registros/registro-paciente/registro-paciente.component';
 import { RegistrosComponent } from './pages/registros/registros/registros.component';
+import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
 
 const routes: Routes = [
   {path:'',component:BienvenidoComponent},
@@ -19,6 +21,8 @@ const routes: Routes = [
   {path:'lista-pacientes',component:ListaPacientesComponent},
   {path:'lista-especialistas',component:ListaEspecialistasComponent},
   {path:'mis-turnos',component:MisTurnosComponent},
+  {path:'mi-perfil',component:MiPerfilComponent},
+  {path:'solicitar-turno',component:SolicitarTurnoComponent},
   {path:'registro',component:RegistrosComponent},
   {path:'registro-paciente',component:RegistroPacienteComponent},
   {path:'registro-especialista',component:RegistroEspecialistaComponent},

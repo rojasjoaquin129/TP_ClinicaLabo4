@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+<div class="container mt-3">
+  <main class="content">
+    <h1 class="text-center">Mi Perfil</h1>
+
+    <div class="container mt-3">
+      <div class="row centered">
+        <!-- Mis datos -->
+        <div class="col-lg-6" style="max-width: 700px">
+          <app-perfil
+            [usuario]="usuario"
+            [tipo]='tipo'
+          ></app-perfil>
+        </div>
+
+        <!-- Mis horarios (Sólo especialista)
+        <div
+          class="col-lg-6"
+          style="max-width: 700px"
+          *ngIf="(tipo==='especialista')"
+        >          <app-horarios
+            *ngIf="usuario"
+            [usuario]="usuario"
+          ></app-horarios>
+        </div>
+
+-->
+
+      </div>
+    </div>
+  </main>
+</div>
+

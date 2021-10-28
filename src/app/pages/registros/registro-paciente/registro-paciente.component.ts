@@ -7,7 +7,7 @@ import { Pacientes } from 'src/app/classes/pasientes';
 import { AuthService } from 'src/app/service/auth.service';
 import { EspecialistasService } from 'src/app/service/especialistas.service';
 import Swal from 'sweetalert2'
-
+import { RecaptchaErrorParameters } from 'ng-recaptcha';
 @Component({
   selector: 'app-registro-paciente',
   templateUrl: './registro-paciente.component.html',
@@ -19,6 +19,7 @@ export class RegistroPacienteComponent implements OnInit {
   imagenDos:any;
   tipo:any;
   admin=false;
+  basePath = '/Pacientes';
   constructor(private frB :FormBuilder ,
      private storage : EspecialistasService,
      private authServis :AuthService) { }
@@ -44,20 +45,24 @@ export class RegistroPacienteComponent implements OnInit {
   }
 
   subirArchivo(event:any){
-    const path ="Pacientes/"+this.formulario.value.email + "_Uno";
-    this.storage.subirArchivo(event.target.value,path)
+    let file=event.target.files[0];
+    let nombre=this.formulario.value.dni+'uno'+file.name;
+    const filePath = `${this.basePath}/${nombre}`;
+    this.storage.subirArchivo(file,filePath)
     timer(3000).subscribe(()=>{
-      this.storage.traerArchivo(path).subscribe(url=>{
+      this.storage.traerArchivo(filePath).subscribe(url=>{
         this.imagenUno=url;
         console.log(url);
       });
     });
 }
 subirArchivoDos(event:any){
-  const path ="Pacientes/"+this.formulario.value.email + "_Dos";
-  this.storage.subirArchivo(event.target.value,path)
+  let file=event.target.files[0];
+  let nombre=this.formulario.value.dni+'dos'+file.name;
+  const filePath = `${this.basePath}/${nombre}`;
+  this.storage.subirArchivo(file,filePath)
   timer(3000).subscribe(()=>{
-    this.storage.traerArchivo(path).subscribe(url=>{
+    this.storage.traerArchivo(filePath).subscribe(url=>{
       this.imagenDos=url;
       console.log(url);
     });
@@ -82,7 +87,13 @@ subirArchivoDos(event:any){
     return paciente;
   }
 
+  public resolved(captchaResponse: any): void {
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
+  }
 
+  public onError(errorDetails: any): void {
+    console.log(`reCAPTCHA error encountered; details:`, errorDetails);
+  }
   aceptar(){
     const paciente=this.crearPaciente();
     console.log(paciente);

@@ -10,6 +10,7 @@ import { ComponentesModule } from '../components/componentes.module';
 import { RegistrosModule } from './registros/registros.module';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { MisTurnosComponent } from './mis-turnos/mis-turnos.component';
+import { SolicitarTurnoComponent } from './solicitar-turno/solicitar-turno.component';
 
 
 
@@ -20,6 +21,7 @@ import { MisTurnosComponent } from './mis-turnos/mis-turnos.component';
     ErrorComponent,
     BienvenidoComponent,
     MisTurnosComponent,
+    SolicitarTurnoComponent,
 
   ],
   imports: [
