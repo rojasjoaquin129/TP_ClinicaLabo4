@@ -22,13 +22,27 @@
   *ngIf="this.listacopiada"
   class="overflow-auto variantDefaultTableHeight"
 >
-  <div class="list-group">
+  <div class="list-group" *ngIf="(this.tipo==='paciente' || this.tipo==='admin')">
     <button
       *ngFor="let specialty of this.listacopiada"
       class="list-group-item list-group-item-action"
       [ngClass]="{ active: this.especialidadSeleccionada?.id === specialty.id }"
       (click)="this.SelecEspecialidad(specialty)">
-      <h6 class="my-0">{{ specialty.nombre }}</h6>
+      <h6  class="my-0">{{ specialty.nombre }}</h6>
+    </button>
+
+    <span *ngIf="this.listacopiada?.length === 0" class="list-group-item">
+      No existe la especialidad {{ busqueda }}
+    </span>
+  </div>
+
+  <div class="list-group" *ngIf="(this.tipo==='especialista')">
+    <button
+      *ngFor="let specialty of this.listacopiada"
+      class="list-group-item list-group-item-action"
+      [ngClass]="{ active: this.especialidadSeleccionada=== specialty }"
+      (click)="this.SelecEspecialidad(specialty)">
+      <h6  class="my-0">{{ specialty}}</h6>
     </button>
 
     <span *ngIf="this.listacopiada?.length === 0" class="list-group-item">

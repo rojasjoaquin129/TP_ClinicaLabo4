@@ -28,6 +28,7 @@ export class RegistroAdminComponent implements OnInit {
       'foto': ['', [Validators.required]],
       'password': ['', [Validators.required,Validators.minLength(6)]],
       'email': ['', [Validators.required,Validators.email]]
+
     });
   }
 

@@ -1,0 +1,36 @@
+<app-spinner
+  [isLoading]="!turnos"
+  [text]="'Cargando horarios disponibles'"
+></app-spinner>
+
+<div *ngIf="turnos?.length === 0">
+  <app-empty-card [text]="'No hay horarios disponibles'"></app-empty-card>
+</div>
+
+<div class="mb-3 animate__animated animate__fadeIn" *ngIf="turnos?.length">
+  <div *ngIf="listaCopiada" class="overflow-auto" style="height: 200px">
+    <div
+      class="wrapper"
+      *ngFor="let groupByShifts of listaCopiada | keyvalue: this.originalOrder"
+    >
+      <div class="group">
+        <div class="date-wrapper text-center my-2">
+          <span>{{ groupByShifts.key }}</span>
+        </div>
+
+        <div class="list-group">
+          <button
+            *ngFor="let turno of groupByShifts.value"
+            class="list-group-item list-group-item-action"
+            [ngClass]="{ active: turnoSeleccionado?.id === turno.id }"
+            (click)="this.selectShift(turno)"
+          >
+            <h6 class="my-0">
+              {{ this.formatoTurno(turno) }}
+            </h6>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

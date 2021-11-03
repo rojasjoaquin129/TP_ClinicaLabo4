@@ -6,15 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FirebaseModule } from './firebase/firebase.module';
 import { PagesModule } from './pages/pages.module';
-
+import { RecaptchaModule } from "ng-recaptcha";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-
-
-
   ],
   imports: [
     BrowserModule,
@@ -22,7 +20,9 @@ import { PagesModule } from './pages/pages.module';
     ReactiveFormsModule,
     FormsModule,
     PagesModule,
-    FirebaseModule
+    FirebaseModule,
+    RecaptchaModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

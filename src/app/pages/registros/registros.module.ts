@@ -5,8 +5,8 @@ import { RegistroEspecialistaComponent } from './registro-especialista/registro-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrosComponent } from './registros/registros.component';
 import { ComponentesModule } from 'src/app/components/componentes.module';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { RegistroAdminComponent } from './registro-admin/registro-admin.component';
-
 
 
 @NgModule({
@@ -14,13 +14,15 @@ import { RegistroAdminComponent } from './registro-admin/registro-admin.componen
     RegistroPacienteComponent,
     RegistroEspecialistaComponent,
     RegistrosComponent,
-    RegistroAdminComponent,
+    RegistroAdminComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    ComponentesModule
+    ComponentesModule,
+    RecaptchaFormsModule,
+    RecaptchaModule,
   ]
 })
 export class RegistrosModule { }

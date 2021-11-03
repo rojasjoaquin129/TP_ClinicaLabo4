@@ -41,6 +41,7 @@ export class RegistroPacienteComponent implements OnInit {
       'foto': ['', Validators.required],
       'fotoDos': ['', Validators.required],
       'obraSocial': ['', Validators.required],
+      'reCaptha':['',[Validators.required]]
     });
   }
 
@@ -56,6 +57,8 @@ export class RegistroPacienteComponent implements OnInit {
       });
     });
 }
+
+
 subirArchivoDos(event:any){
   let file=event.target.files[0];
   let nombre=this.formulario.value.dni+'dos'+file.name;
@@ -88,6 +91,7 @@ subirArchivoDos(event:any){
   }
 
   public resolved(captchaResponse: any): void {
+
     console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
 

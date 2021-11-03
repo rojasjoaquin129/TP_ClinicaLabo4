@@ -21,7 +21,7 @@ import { SolicitarTurnoComponent } from './solicitar-turno/solicitar-turno.compo
     ErrorComponent,
     BienvenidoComponent,
     MisTurnosComponent,
-    SolicitarTurnoComponent,
+    SolicitarTurnoComponent
 
   ],
   imports: [

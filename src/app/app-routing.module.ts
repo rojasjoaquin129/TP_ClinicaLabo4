@@ -14,6 +14,7 @@ import { RegistroPacienteComponent } from './pages/registros/registro-paciente/r
 import { RegistrosComponent } from './pages/registros/registros/registros.component';
 import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
 
+
 const routes: Routes = [
   {path:'',component:BienvenidoComponent},
   {path:'login',component: LoginComponent},

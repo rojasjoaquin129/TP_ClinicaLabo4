@@ -63,6 +63,9 @@
               <a class="nav-link active" aria-current="page" routerLink="../lista-especialistas">Especialistas</a>
           </li>
           <li class="nav-item" *ngIf="(tipo=='admin')">
+            <a class="nav-link active" aria-current="page" routerLink="../mis-turnos">Turnos</a>
+        </li>
+          <li class="nav-item" *ngIf="(tipo=='admin')">
             <a class="nav-link active" aria-current="page" routerLink="../registro">Altas</a>
         </li>
         <li class="nav-item" *ngIf="(tipo=='paciente' || tipo==='especialista')">

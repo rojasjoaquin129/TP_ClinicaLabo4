@@ -48,9 +48,14 @@ export class RegistroEspecialistaComponent implements OnInit {
       'password': ['', [Validators.required,Validators.minLength(6)]],
       'email': ['', [Validators.required,Validators.email]],
       'especialidades':['', [Validators.required]],
+      'reCaptha':['',[Validators.required]]
     });
   }
 
+  public resolved(captchaResponse: any): void {
+
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
+  }
 
   caputurarRadioEspecialidad(event: any){
       if(event.target.checked){

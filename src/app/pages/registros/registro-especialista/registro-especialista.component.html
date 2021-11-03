@@ -91,11 +91,14 @@
 
             </div>
 
+            <div class="col-md-6">
+              <re-captcha
+              formControlName="reCaptcha"
 
-            <div class="col-md-12 mb-5">
-
-
-
+              (resolved)="resolved($event)"
+              siteKey="6LcwBv4cAAAAAGuO-kT4nj5Z_mEoNniCXo2DVgRv"
+            ></re-captcha>
+            <small class="invalid" *ngIf="formulario.get('reCaptcha')?.errors?.required && formulario.get('reCaptcha')?.touched ">es requerido el  reCaptcha</small>
             </div>
 
         </div>

@@ -2,9 +2,23 @@
   [isLoading]="!this.listUsuarios"
   [text]="'Cargando lista de usuarios'"
 ></app-spinner>
-<div *ngIf="listUsuarios && Especialidad && listUsuarios.length===0" >
-  <h1> No hay especialistas para la especialidad de + {{Especialidad.nombre}}</h1>
+<div *ngIf="!usuarioEntregado">
+  <div *ngIf="listUsuarios && Especialidad && listUsuarios.length===0" >
+    <h1> No hay especialistas para la especialidad de {{Especialidad.nombre}}</h1>
+  </div>
+</div  >
+<div *ngIf="usuarioEntregado && tipo==='paciente'">
+  <div *ngIf="listUsuarios && Especialidad && listUsuarios.length===0" >
+    <h1> No hay especialistas para la especialidad de {{Especialidad.nombre}}</h1>
+  </div>
 </div>
+
+<div *ngIf="usuarioEntregado && tipo==='especialista'">
+  <div *ngIf="listUsuarios && Especialidad && listUsuarios.length===0" >
+    <h1> No hay pacientes para la especialidad de  {{Especialidad}}</h1>
+  </div>
+</div>
+
 <div *ngIf="listUsuarios && !Especialidad && listUsuarios.length===0">
   <h1>
     NO Hay USUARIOS
@@ -14,7 +28,10 @@
 <div class="mb-3 animate__animated animate__fadeIn" *ngIf="listUsuarios && listUsuarios.length !==0">
   <h4
     class="d-flex justify-content-between align-items-center mb-3" >
-      <span class="text-primary">Lista de {{tipo}}</span>
+
+      <span *ngIf="!usuarioEntregado" class="text-primary">Lista de {{tipo}}</span>
+      <span *ngIf="usuarioEntregado && tipo==='paciente'" class="text-primary">Lista de Especialista</span>
+      <span *ngIf="usuarioEntregado && tipo==='especialista'" class="text-primary">Lista de Pacientes</span>
       <span class="badge bg-primary rounded-pill">
         {{ listUsuarios?.length }}
       </span>

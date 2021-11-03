@@ -5,6 +5,7 @@
       <div class="rounded-3">
         <h2>Especialidad</h2>
         <app-especialidades
+        [tipo]="('paciente')"
           (espSelec)="this.selecEspecialidad($event)"
         ></app-especialidades>
       </div>
@@ -17,7 +18,7 @@
           *ngIf="this.seleccionoEspecialidad"
           (usuarioSeleccionado)="this.SelecEspecialista($event)"
           [Especialidad]="this.especialidad"
-
+          [tipo]="('especialistas')"
         ></app-filtro-doctor>
 
         <div *ngIf="!this.seleccionoEspecialidad">
@@ -40,5 +41,95 @@
         ></app-filtro-doctor>
       </div>
     </div>
+
+    <div [ngClass]="{ 'col-md-6': this.tipo=== 'admin' }">
+      <div class="rounded-3">
+        <h2>Día y horario</h2>
+        <div *ngIf="!this.EspecialistaSeleccionado;
+        ">
+          Selecciona un especialista para ver sus días y horarios
+        </div>
+
+        <app-lista-horarios
+          *ngIf="this.EspecialistaSeleccionado"
+          [turnos]="turnos"
+          (seleccionarHorarioTurno)="this.setSeleccionarTurno($event)"
+        ></app-lista-horarios>
+      </div>
+    </div>
+    <button
+    type="button"
+    class="btn btn-primary w-100 my-3"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    [disabled]="this.turnoFrom.invalid"
+  >
+    Confirmar turno
+  </button>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    *ngIf="
+      especialidad&&
+      EspecialistaSeleccionado &&
+      pacienteSeleccionado &&
+      turnoSeleccionado
+    "
+  >
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detalles del turno</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              Fecha: {{ formatoConfirmacionTurno(turnoSeleccionado) }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              Especialidad: {{ especialidad.nombre}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              Especialista: {{ EspecialistaSeleccionado.nombre }}
+              {{ EspecialistaSeleccionado.apellido }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              Paciente: {{ pacienteSeleccionado.nombre }}
+              {{ pacienteSeleccionado.apellido }}
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="confirmarTurno()"
+            data-bs-dismiss="modal"
+          >
+            Confirmo
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
+
+
+  </div>
+
+
+
 </div>

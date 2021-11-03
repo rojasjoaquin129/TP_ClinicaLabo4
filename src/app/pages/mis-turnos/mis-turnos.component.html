@@ -1,2 +1,49 @@
 <app-navbar></app-navbar>
-<p>mis-turnos works!</p>
+<div class="container py-4">
+  <div class="row">
+    <div class="col-md-6 my-3">
+      <div class="rounded-3">
+        <h2>Especialidad</h2>
+        <app-especialidades
+          [tipo]="tipo"
+          (espSelec)="this.selecEspecialidad($event)"
+          [usuario]="usuario"
+        ></app-especialidades>
+      </div>
+    </div>
+
+    <div class="col-md-6 my-3">
+      <div class="rounded-3">
+        <h2>{{ esEspecialsita ? "Pacientes" : "Especialistas" }}</h2>
+        <app-filtro-doctor
+        [tipo]="tipo"
+
+        [Especialidad]="especialidadSeleccionada"
+        [usuarioEntregado]="usuario"
+        (MisTurnos)="turnosDelUsuario($event)"
+          (usuarioSeleccionado)="
+            this.esEspecialsita
+              ? this.setSeleccionPaciente($event)
+              : this.setSeleccionEspecialista($event) "
+        ></app-filtro-doctor>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="rounded-3">
+        <h2>Turnos</h2>
+        <app-tabla-turnos
+        [especialistaSelecionado]="especialistaSeleccionado"
+        [pacienteSeleccionado]="pacienteSeleccionado"
+        [tipo]="tipo"
+        [turnos]="turnos"
+        ></app-tabla-turnos>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

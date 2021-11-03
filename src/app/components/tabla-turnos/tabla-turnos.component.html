@@ -1,0 +1,401 @@
+<app-spinner
+  [isLoading]="!this.turnosSelecionado"
+  [text]="'Cargando lista de turnos'"
+></app-spinner>
+<div *ngIf="this.turnosSelecionado && turnosSelecionado.length === 0">
+  <app-empty-card [text]="('No hay turnos')"></app-empty-card>
+</div>
+
+<div class="mb-3 animate__animated animate__fadeIn" *ngIf="this.turnosSelecionado?.length ">
+  <!-- Count list -->
+  <h4
+    class="d-flex justify-content-between align-items-center mb-3"
+
+  >
+    <!-- *ngIf="this.showCountList" -->
+    <span class="text-primary">Lista de Turnos</span>
+    <span class="badge bg-primary rounded-pill">
+      {{ this.turnosSelecionado?.length }}
+    </span>
+  </h4>
+
+  <div *ngIf="this.turnosSelecionado" class="overflow-auto shiftTableHeight">
+    <ul class="list-group">
+      <li
+        class="
+          list-group-item list-group-item-action
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+        style="cursor: pointer"
+        *ngFor="let turno of this.turnosSelecionado"
+
+      >
+        <div
+          class="d-flex flex-column justify-content-start align-items-start"
+          style="flex: 1"
+        >
+          <h6 class="my-0">Especialidad: {{ turno.especialidad }}</h6>
+          <h6 class="my-0">Fecha: {{ this.formatShift(turno) }}</h6>
+          <h6 class="my-0">Estado: {{ this.formatStatus(turno.estado) }}</h6>
+        </div>
+
+        <!-- Specialist -->
+        <div
+          class="d-flex justify-content-start align-items-center"
+          style="flex: 1"
+
+        ><!-- *ngIf="this.showSpecialist" -->
+          <img
+            class="me-3 rounded-circle"
+            [src]="turno.especialista?.fotoUno"
+            alt="User image"
+            width="55"
+            height="55"
+          />
+
+          <div>
+            <small class="text-muted">Especialista</small>
+            <h6 class="my-0">
+              {{ turno.especialista?.apellido }}
+              {{ turno.especialista?.nombre }}
+            </h6>
+            <h6 class="my-0">{{ turno.especialista?.mail }}</h6>
+          </div>
+        </div>
+
+        <!-- Patient -->
+        <div
+          class="d-flex justify-content-start align-items-center"
+          style="flex: 1"
+          *ngIf=" turno.paciente"
+        >
+          <img
+            class="me-3 rounded-circle"
+            [src]="turno.paciente?.fotoUno"
+            alt="User image"
+            width="55"
+            height="55"
+          />
+
+          <div>
+            <small class="text-muted">Paciente</small>
+            <h6 class="my-0">
+              {{ turno.paciente?.nombre }} {{ turno.paciente?.apellido }}
+            </h6>
+            <h6 class="my-0">{{ turno.paciente?.mail }}</h6>
+          </div>
+        </div>
+
+        <div
+          class="d-flex justify-content-start align-items-center text-center"
+          style="flex: 1"
+          *ngIf="!turno.paciente"
+        >
+          <h6 class="my-0">Turno {{ this.formatStatus(turno.estado) }}</h6>
+        </div>
+
+        <!-- Buttons -->
+        <div>
+          <!-- ACEPTAR TURNO (solo especialista)-->
+          <button
+            class="btn btn-outline-primary me-3"
+            *ngIf="botonAceptarYRechazarCondicion(turno)"
+            (click)="AceptarTurno(turno)"
+          >
+            <i class="far fa-thumbs-up"></i>
+          </button>
+
+          <!-- RECHAZAR TURNO (SOLO ESPECIALISTA)-->
+          <button
+            class="btn btn-outline-secondary me-3"
+            *ngIf="botonAceptarYRechazarCondicion(turno)"
+            (click)="rechazarTurno(turno)"
+            data-bs-toggle="modal"
+            data-bs-target="#commentModal"
+          >
+            <i class="far fa-thumbs-down"></i>
+          </button>
+
+          <!-- CANCELAR TURNO (todos los roles)-->
+          <button
+            class="btn btn-outline-danger me-3"
+            *ngIf="botonCancelarCondicion(turno)"
+            (click)="cancelarTurno(turno)"
+            data-bs-toggle="modal"
+            data-bs-target="#commentModal"
+          >
+
+            <i class="far fa-window-close"></i>
+          </button>
+
+          <!-- FINALIZAR TURNO (SOLO ESPECIALISTA)-->
+          <button
+            class="btn btn-outline-success"
+            *ngIf="botonFinalizarTurnoCondicion(turno)"
+            (click)="finalizarTurno(turno)"
+            data-bs-toggle="modal"
+            data-bs-target="#completedModal"
+          >
+            <i class="far fa-check-square"></i>
+          </button>
+
+          <!-- Ver ReseÑA -->
+          <button
+            class="btn btn-outline-warning"
+            *ngIf="botonVerReseniaTurnoCondicion(turno)"
+            (click)="verResenia(turno)"
+          >
+            <i class="far fa-address-book"></i>
+          </button>
+
+
+
+          <!-- VER RESEÑA (ADENTRO DEL MODAL...) -->
+        </div>
+
+
+      </li>
+
+      <app-empty-card *ngIf="turnosSelecionado.length === 0" [text]="'No hay turnos'">
+      </app-empty-card>
+    </ul>
+  </div>
+<!--  modal de cancelacion-->
+<div *ngIf="modalCancelyRechazar"  class="modal fade" id="commentModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Detalles del turno</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          [formGroup]="comentarioTurnoFrom"
+          (ngSubmit)="cancelacionYRechazarTurno()"
+        >
+          <div>
+            <h5 for="txtareaCancel" class="form-label">
+              {{tituloModalRechazarCancelacion}}
+            </h5>
+
+            <textarea
+              class="form-control"
+              placeholder="Deje un comentario aquí"
+              style="height: 100px"
+              id="txtareaCancel"
+              style="resize: none"
+              formControlName="comentario"
+              autocomplete="off"
+            ></textarea>
+          </div>
+
+          <div class="form-text text-danger">
+            {{ cargarMensajeErrorCancelacionYRechazo("comentario") }}
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          [disabled]="comentarioTurnoFrom.invalid"
+          (click)="cancelacionYRechazarTurno()"
+        >
+          Enviar comentario
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- historial modal -->
+<div class="modal fade" id="completedModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Detalles del turno</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <form
+        [formGroup]="historialTurnoForm"
+        (ngSubmit)="onCompletarTurno()"
+      >
+        <div class="modal-body">
+          {{ historialTurnoForm.getRawValue() | json }}
+
+          <div class="mb-3">
+            <h5 for="txtareaComment" class="form-label">
+              Reseña de la consulta
+            </h5>
+
+            <textarea
+              class="form-control"
+              placeholder="Deje un comentario aquí"
+              style="height: 100px"
+              id="txtareaComment"
+              style="resize: none"
+              formControlName="comment"
+              autocomplete="off"
+            ></textarea>
+
+            <div class="form-text text-danger">
+              {{ this.mensajeErrorHistorial("comment") }}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <h5 for="txtareaDiagnosis" class="form-label">Diagnóstico</h5>
+
+            <textarea
+              class="form-control"
+              placeholder="Deje un comentario aquí"
+              style="height: 100px"
+              id="txtareaDiagnosis"
+              style="resize: none"
+              formControlName="diagnostico"
+              autocomplete="off"
+            ></textarea>
+
+            <div class="form-text text-danger">
+              {{ this.mensajeErrorHistorial("diagnostico") }}
+            </div>
+          </div>
+
+          <!-- user Data -->
+          <h5 class="form-label">Datos del paciente</h5>
+          <div class="mb-3">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="height" class="form-label">Altura</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="height"
+                    placeholder="Altura del paciente"
+                    formControlName="altura"
+                    min="30"
+                    max="210"
+                    autocomplete="off"
+                  />
+                  <span class="input-group-text">cm</span>
+                </div>
+
+                <div class="form-text text-danger">
+                  {{ this.mensajeErrorHistorial("altura") }}
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="weight" class="form-label">Peso</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="weight"
+                    placeholder="Peso del paciente"
+                    formControlName="peso"
+                    min="20"
+                    max="180"
+                    autocomplete="off"
+                  />
+                  <span class="input-group-text">kg</span>
+                </div>
+                <div class="form-text text-danger">
+                  {{ this.mensajeErrorHistorial("peso") }}
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-2">
+              <div class="col-md-6">
+                <label for="temperature" class="form-label">Temperatura</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="temperature"
+                    placeholder="Temperatura del paciente"
+                    formControlName="temperatura"
+                    min="36"
+                    max="42"
+                    autocomplete="off"
+                  />
+                  <span class="input-group-text">ºC</span>
+                </div>
+                <div class="form-text text-danger">
+                  {{ this.mensajeErrorHistorial("temperatura") }}
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="pressureSystolic" class="form-label">
+                  Presión sanguínea
+                </label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="pressureSystolic"
+                    placeholder="Sistólica"
+                    formControlName="pesionAlta"
+                    min="120"
+                    max="129"
+                    autocomplete="off"
+                  />
+                  <span class="input-group-text">/</span>
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Diastólica"
+                    formControlName="presionBaja"
+                    min="80"
+                    max="84"
+                    autocomplete="off"
+                  />
+                </div>
+
+                <div class="form-text text-danger">
+                  {{ this.mensajeErrorHistorial("pesionAlta") }}
+                </div>
+
+                <div class="form-text text-danger">
+                  {{ this.mensajeErrorHistorial("presionBaja") }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="onCompletarTurno()"
+            [disabled]="historialTurnoForm.invalid"
+          >
+            Completar consulta
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
