@@ -149,10 +149,28 @@
           >
             <i class="far fa-address-book"></i>
           </button>
+          <!-- Completar encuesta -->
+          <button
+          class="btn btn-outline-primary"
+          *ngIf="botonCompletarEncuestaCondicion(turno)"
+          (click)="selecionarTurno(turno)"
+          data-bs-toggle="modal"
+          data-bs-target="#EncuestaModal"
+        >
+          <i class="fas fa-book-medical"></i>
+        </button>
 
+          <!-- Calificar Atencion -->
+          <button
+          class="btn btn-outline-info"
+          *ngIf="botonCalificarAtencionCondicion(turno)"
+          (click)="selecionarTurno(turno)"
+          data-bs-toggle="modal"
+          data-bs-target="#calificacionModal"
+        >
+        <i class="far fa-star"></i>
+        </button>
 
-
-          <!-- VER RESEÑA (ADENTRO DEL MODAL...) -->
         </div>
 
 
@@ -162,6 +180,131 @@
       </app-empty-card>
     </ul>
   </div>
+
+
+<!--  modal de Calificacion-->
+
+
+<div class="modal fade"  id="calificacionModal" >
+  <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="text-align: center;">¿Como calificaria la Atencion ?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="col-md-6 mb-5 text-center">
+
+        <label for="clasificacion" class="form-label text-center">Puntuación de la atencion &nbsp;&nbsp;</label>
+
+        <p class="clasificacion">
+            <input id="radio1" type="radio" name="puntuacion" value="5" >
+            <label for="radio1" id="star" title="Hello This Will Have Some Value">★</label>
+            <input id="radio2" type="radio" name="puntuacion" value="4" >
+            <label for="radio2" id="star">★</label>
+            <input id="radio3" type="radio" name="puntuacion" value="3" >
+            <label for="radio3" id="star">★</label>
+            <input id="radio4" type="radio" name="puntuacion" value="2" >
+            <label for="radio4" id="star">★</label>
+            <input id="radio5" type="radio" name="puntuacion" value="1"checked >
+            <label for="radio5" id="star">★</label>
+        </p>
+        <!--
+        <small class="invalid" *ngIf="formulario.get('puntuacion')?.errors?.required && formulario.get('puntuacion')?.touched">
+            La puntuación del juego es requerido
+        </small>
+        -->
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="enviarCalificacion()"  data-bs-dismiss="modal" >ACEPTAR</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- modal Encuesta-->
+
+
+<div class="modal fade"  id="EncuestaModal">
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Encuesta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <form [formGroup]="encuestaFrom" >
+        <div class="modal-body">
+                <!-- pregunta uno -->
+            <div class="mb-3 ml-3" >
+              <h5 for="txtareaComment" class="form-label">
+                Mientras estuvo en la consulta, ¿pudo comentar al médico todas las cosas que le preocupaban por su salud?
+             </h5>
+              <input id="pregunta1" type="radio"  value="si" formControlName="preguntaUno">
+              <label for="pregunta1" id="star" title="Hello This Will Have Some Value"><h6>Si</h6></label> <br>
+              <input id="pregunta1" type="radio"  value="no" formControlName="preguntaUno">
+              <label for="pregunta1" id="star"><h6>No</h6></label>
+              <small class="invalid" *ngIf="encuestaFrom.get('preguntaUno')?.errors?.required && encuestaFrom.get('preguntaUno')?.touched">
+                Esta Pregunta es requerida
+              </small>
+            </div>
+      <!--pregunta dos  -->
+            <div class="mb-3 ml-3">
+              <h5 for="txtareaComment" class="form-label">
+                ¿Cree que el tiempo de consulta fue el adecuado para darle un diagnóstico?
+              </h5>
+              <input id="pregunta2" type="radio"  value="si" formControlName="preguntaDos">
+              <label for="pregunta2" id="star" ><h6>Si</h6></label> <br>
+              <input id="pregunta2" type="radio"  value="no" formControlName="preguntaDos">
+              <label for="pregunta2" id="star"><h6>No</h6></label>
+              <small class="invalid" *ngIf="encuestaFrom.get('preguntaDos')?.errors?.required && encuestaFrom.get('preguntaDos')?.touched">
+                Esta Pregunta es requerida
+              </small>
+            </div>
+       <!--pregunta tres  -->
+            <div class="mb-3 ml-3">
+              <h5 for="txtareaComment" class="form-label">
+                ¿Está satisfecho sobre la información que el médico le brindó sobre su diagnóstico?
+              </h5>
+              <input id="pregunta3" type="radio" value="si" formControlName="preguntaTres">
+              <label for="pregunta3" id="star" ><h6>Si</h6></label> <br>
+              <input id="pregunta3" type="radio"  value="no" formControlName="preguntaTres">
+              <label for="pregunta3" id="star"><h6>No</h6></label>
+              <small class="invalid" *ngIf="encuestaFrom.get('preguntaTres')?.errors?.required && encuestaFrom.get('preguntaTres')?.touched">
+                Esta Pregunta es requerida
+              </small>
+            </div>
+      <!--pregunta cuatro  -->
+            <div class="mb-3 ml-3">
+              <h5 for="txtareaComment" class="form-label">
+                ¿Cómo calificaría el horario  del hospital?
+              </h5>
+              <input id="pregunta4" type="radio"  value="si" formControlName="preguntaCuatro">
+              <label for="pregunta4" id="star" ><h6>Bueno</h6></label> <br>
+              <input id="pregunta4" type="radio"  value="no" formControlName="preguntaCuatro">
+              <label for="pregunta4" id="star"><h6>Promedio</h6></label> <br>
+              <input id="pregunta4" type="radio"  value="masomenos" formControlName="preguntaCuatro">
+              <label for="pregunta4" id="star"><h6>Malo</h6></label>
+              <small class="invalid" *ngIf="encuestaFrom.get('preguntaCuatro')?.errors?.required && encuestaFrom.get('preguntaCuatro')?.touched">
+                Esta Pregunta es requerida
+              </small>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" [disabled]="encuestaFrom.invalid"   data-bs-dismiss="modal" (click)="enviarEncuesta()" >ACEPTAR</button>
+              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+              </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
 <!--  modal de cancelacion-->
 <div *ngIf="modalCancelyRechazar"  class="modal fade" id="commentModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
@@ -201,6 +344,9 @@
           </div>
         </form>
       </div>
+
+
+
 
       <div class="modal-footer">
         <button

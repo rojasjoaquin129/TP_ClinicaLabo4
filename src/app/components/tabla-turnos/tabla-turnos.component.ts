@@ -27,6 +27,7 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
   turnoSeleccionado:any;
   comentarioTurnoFrom:FormGroup;
   historialTurnoForm:FormGroup;
+  encuestaFrom:FormGroup;
   historialModal=false;
   reseniaParaVer:string='';
   public comentario=new FormControl(null,[Validators.required,Validators.minLength(6)]);
@@ -71,6 +72,12 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
         Validators.min(80),
         Validators.max(84),
       ]),
+    })
+    this.encuestaFrom=this.fB.group({
+      preguntaUno:new FormControl('', [Validators.required]),
+      preguntaDos:new FormControl('', [Validators.required]),
+      preguntaTres:new FormControl('', [Validators.required]),
+      preguntaCuatro:new FormControl('', [Validators.required]),
     })
   }
 
@@ -124,8 +131,23 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
     }
     return '';
   }
-
-
+  async enviarCalificacion(){
+    const aceptadoTurno:Turno={...this.turnoSeleccionado,calificado:true}
+    await this.turnosService.subirTurno(aceptadoTurno);
+     this.mensaje(
+       'Usted Califico La atencion del Turno',
+       'Fue aprobado con éxito!'
+     );
+  }
+  async enviarEncuesta()
+  {
+    const aceptadoTurno:Turno={...this.turnoSeleccionado,encuestado:true}
+    await this.turnosService.subirTurno(aceptadoTurno);
+     this.mensaje(
+       'Usted envio la Encuesta del Turno',
+       'Fue aprobado con éxito!'
+     );
+  }
   ngOnChanges(changes:SimpleChanges){
     this.filtrarLista(this.turnos);
     if(changes.especialistaSeleccionado){
@@ -194,6 +216,27 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
     }
     console.log(this.turnosSelecionado);
   }
+
+
+  botonCompletarEncuestaCondicion(turno:Turno){
+    let flag=false;
+    if((this.tipo==='paciente' && turno.estado==='finalizado')) {
+      if(!turno.encuestado){
+        flag=true;
+      }
+    }
+    return flag;
+  }
+  botonCalificarAtencionCondicion(turno:Turno){
+    let flag=false;
+    if(this.tipo==='paciente' && turno.estado==='finalizado'){
+      if(!turno.calificado){
+        flag=true;
+      }
+    }
+    return flag;
+  }
+
 
   async AceptarTurno(turno:Turno){
    const aceptadoTurno:Turno={...turno,estado:'aceptado'}
@@ -390,7 +433,7 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
   }
 
   selecionarTurno(turno:Turno){
-    console.log(turno);
+    this.turnoSeleccionado=turno;
   }
   formatShift(turno: Turno) {
     return formatConfirmShift(turno);

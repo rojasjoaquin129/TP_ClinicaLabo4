@@ -12,6 +12,8 @@ export class Turno{
   razonCancelacion?:string;
   razonRechazar?:string;
   comentarioCompleto?:string;
+  encuestado?:boolean;
+  calificado?:boolean;
   Terminado?:string|Date;
   diagnostico?:string;
   pasienteInfo?:{
