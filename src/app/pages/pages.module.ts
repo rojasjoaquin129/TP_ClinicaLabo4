@@ -11,6 +11,8 @@ import { RegistrosModule } from './registros/registros.module';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { MisTurnosComponent } from './mis-turnos/mis-turnos.component';
 import { SolicitarTurnoComponent } from './solicitar-turno/solicitar-turno.component';
+import { PdfComponent } from './pdf/pdf.component';
+import { HistorialClinicoComponent } from './historial-clinico/historial-clinico.component';
 
 
 
@@ -21,7 +23,9 @@ import { SolicitarTurnoComponent } from './solicitar-turno/solicitar-turno.compo
     ErrorComponent,
     BienvenidoComponent,
     MisTurnosComponent,
-    SolicitarTurnoComponent
+    SolicitarTurnoComponent,
+    PdfComponent,
+    HistorialClinicoComponent
 
   ],
   imports: [

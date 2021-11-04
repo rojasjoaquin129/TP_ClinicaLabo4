@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -8,11 +9,15 @@ import { Component,OnInit } from '@angular/core';
 export class MiPerfilComponent implements OnInit {
   public usuario: any ;
   public tipo:any;
-  constructor() { }
+  constructor(
+    private router :Router
+  ) { }
 
   ngOnInit(): void {
     this.usuario=JSON.parse(localStorage.getItem('usuario') as string) ;
   this.tipo=localStorage.getItem('tipo');
   }
-
+  iraHistorial(){
+    this.router.navigate(['historial-clinico']);
+  }
 }

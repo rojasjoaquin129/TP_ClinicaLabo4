@@ -5,6 +5,7 @@ import { ListaPacientesComponent } from './components/lista-pacientes/lista-paci
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { BienvenidoComponent } from './pages/bienvenido/bienvenido.component';
 import { ErrorComponent } from './pages/error/error.component';
+import { HistorialClinicoComponent } from './pages/historial-clinico/historial-clinico.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path:'registro-paciente',component:RegistroPacienteComponent},
   {path:'registro-especialista',component:RegistroEspecialistaComponent},
   {path:'registro-admin',component:RegistroAdminComponent},
+  {path:'historial-clinico',component:HistorialClinicoComponent},
   {path:'**',component:ErrorComponent},
 
 ];

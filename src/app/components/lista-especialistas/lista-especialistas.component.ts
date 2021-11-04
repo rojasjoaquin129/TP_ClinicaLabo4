@@ -3,8 +3,11 @@ import { timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Especialistas } from 'src/app/classes/especialistas';
 import { AuthService } from 'src/app/service/auth.service';
-
+import {Administradores} from 'src/app/classes/Administradores';
+import { Pacientes } from 'src/app/classes/pasientes';
 import Swal from 'sweetalert2'
+import * as XLSX from 'xlsx'
+
 @Component({
   selector: 'app-lista-especialistas',
   templateUrl: './lista-especialistas.component.html',
@@ -14,8 +17,23 @@ export class ListaEspecialistasComponent implements OnInit {
   listaEspecialista:any[]=[];
   especialista:any;
   loading=false;
+  pacientesLista:Pacientes[]=[];
+  especialistas:Especialistas[]=[];
+  admins:Administradores[]=[];
+  exportar:boolean=false;
+  fileName='ExcelUsuarios.xlsx';
   constructor(private authService :AuthService) {
+    this.authService.traerTodoPacientes().subscribe((listadePacientes)=>{
+      this.pacientesLista=listadePacientes;
 
+    });
+
+    this.authService.traerTodoEspecialista().subscribe((listadeEspecialistas)=>{
+      this.especialistas=listadeEspecialistas;
+    })
+    this.authService.traerTodoAdmin().subscribe((listaDeAdministradores)=>{
+      this.admins=listaDeAdministradores;
+    })
    }
 
   ngOnInit(): void {
@@ -39,13 +57,30 @@ export class ListaEspecialistasComponent implements OnInit {
         this.authService.actualizarEspecialista(id,this.especialista)
       }
       });
-
-
-
-
-
-
   }
+
+  exportExcel(){
+    /* pass here the table id */
+      this.exportar=true;
+      timer(10).subscribe(()=>{
+       if(this.exportar){
+         let element = document.getElementById('excel-table');
+         console.log(element);
+         const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+         /* generate workbook and add the worksheet */
+         const wb: XLSX.WorkBook = XLSX.utils.book_new();
+         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+         /* save to file */
+         XLSX.writeFile(wb, this.fileName);
+       }
+       if(this.exportar){
+         this.exportar=false;
+       }
+      });
+ }
+
   getEspecialistas(){
     this.authService.getEspecialistas().subscribe(data=>{
       this.listaEspecialista=[];

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Especialistas } from 'src/app/classes/especialistas';
 import { Pacientes } from 'src/app/classes/pasientes';
@@ -13,11 +13,13 @@ import { ListaEspecialistasComponent } from '../lista-especialistas/lista-especi
   styleUrls: ['./tabla-turnos.component.scss']
 })
 export class TablaTurnosComponent implements OnInit ,OnChanges {
+  @Input() historialMedico:boolean=false;
   @Input() especialistaSelecionado:Especialistas|Pacientes|null=null;
   @Input() especialidadSelecionada:any=null;
   @Input() pacienteSeleccionado:Pacientes|Especialistas|null=null;
   @Input() tipo:string='';
   @Input() turnos:Turno[]|null=null;
+  @Output() elTurno:EventEmitter<Turno |null>;
   public turnosSelecionado:Turno[]|null=null;
   turnosCompletos:Turno[]|null=null;
   tituloModalRechazarCancelacion:string='';
@@ -35,6 +37,7 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
     private turnosService:TurnosService,
     private fB:FormBuilder
   ) {
+    this.elTurno=new EventEmitter<Turno|null>();
     this.comentarioTurnoFrom=this.fB.group({
       comentario:this.comentario
     });
@@ -220,7 +223,7 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
 
   botonCompletarEncuestaCondicion(turno:Turno){
     let flag=false;
-    if((this.tipo==='paciente' && turno.estado==='finalizado')) {
+    if((this.tipo==='paciente' && turno.estado==='finalizado'  && !this.historialMedico)) {
       if(!turno.encuestado){
         flag=true;
       }
@@ -229,7 +232,7 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
   }
   botonCalificarAtencionCondicion(turno:Turno){
     let flag=false;
-    if(this.tipo==='paciente' && turno.estado==='finalizado'){
+    if(this.tipo==='paciente' && turno.estado==='finalizado' && !this.historialMedico){
       if(!turno.calificado){
         flag=true;
       }
@@ -346,12 +349,18 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
 
   botonVerReseniaTurnoCondicion(turno:Turno){
     let flag=false;
-    if(this.tipo==='paciente'|| this.tipo==='especialista'){
+    if(this.tipo==='paciente'  && !this.historialMedico || this.tipo==='especialista'  && !this.historialMedico){
       if(turno.estado==='cancelado' || turno.estado==='rechazado' || turno.estado==='finalizado'){
         flag=true;
       }
     }
     return flag
+  }
+
+  seleccionarTurno(turno:Turno){
+    if(this.historialMedico){
+      this.elTurno.emit(turno);
+    }
   }
   verResenia(turno:Turno){
     let resenia:any;

@@ -1,23 +1,70 @@
 <app-navbar></app-navbar>
-<table class="table">
+<app-spinner>
+    [isLoading]="!listaPacientes"
+    [text]="Cargando lista de pacientes"
+</app-spinner>
+
+
+
+
+<table class="table table-hover" id='excel-table'>
   <thead>
-    <tr>
+
+    <tr class="table-dark" >
+      <th *ngIf="exportar"scope="col">TIPO USUARIO</th>
       <th scope="col">Nombre</th>
-      <th scope="col">Apellido</th>
       <th scope="col">Mail</th>
       <th scope="col">Edad</th>
       <th scope="col">Dni</th>
       <th scope="col">ObraSocial</th>
+      <th *ngIf="exportar" scope="col">Especialidad</th>
     </tr>
+
+
+
   </thead>
   <tbody  >
-    <tr *ngFor="let especialista of listaPacientes ,let i=index">
-      <th scope="row">{{especialista.nombre}}</th>
-      <td>{{especialista.apellido}}</td>
+    <tr  class="table-warning" *ngFor="let especialista of listaPacientes ,let i=index">
+      <th *ngIf="exportar" scope="row">Paciente</th>
+      <th>{{especialista.nombre}} {{especialista.apellido}} </th>
       <td>{{especialista.mail}}</td>
       <td>{{especialista.edad}}</td>
       <td>{{especialista.dni}}</td>
-      <td>{{especialista.obraSocial}}</td>
-    </tr>
+      <td >{{especialista.obraSocial}}</td>
+      <td *ngIf="exportar" >-</td>
+    </tr >
+    <div *ngIf="exportar">
+      <tr   class="table-warning" *ngFor="let item of especialistas">
+        <th scope="row">Especialista</th>
+        <td>{{item.nombre}} {{item.apellido}}</td>
+        <td>{{item.mail}}</td>
+        <td>{{item.edad}}</td>
+        <td>{{item.dni}}</td>
+        <td>-</td>
+        <td>
+          <section>
+          <option *ngFor="let es of item.especialidad">{{es}}</option>
+          </section>
+        </td>
+      </tr>
+      <tr class="table-warning" *ngFor="let item of admins">
+        <th scope="row">Administradores</th>
+        <td>{{item.nombre}} {{item.apellido}}</td>
+        <td>{{item.mail}}</td>
+        <td>{{item.edad}}</td>
+        <td>{{item.dni}}</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    </div>
+
   </tbody>
 </table>
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <button class="btn btn-lg btn-primary ml-6 "  (click)="exportExcel()">Exportar a Excel </button>
+    </div>
+  </div>
+</div>
+

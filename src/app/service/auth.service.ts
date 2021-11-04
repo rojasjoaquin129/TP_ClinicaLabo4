@@ -14,6 +14,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 @Injectable({
   providedIn: 'root'
 })
+// que chancho hice esto , es para el borda , un monton de datos q van al mismo lugar
+//pero bueno sirvio y hay cosas q vamos aprendiendo y este es el borrador con cada agregado queda mejor
 export class AuthService {
 
   public listaEspecialista:Especialistas[]=[];
@@ -173,15 +175,21 @@ export class AuthService {
     return flag;
   }
 
-  traerTodoAdmin(){
-    return this.AdministradoresRef.valueChanges() as Observable<Administradores[]>
-  }
+
+  //uff de aca
   traerTodoPacientes(){
     return this.PacientesRef.valueChanges() as Observable<Pacientes[]>;
   }
   traerTodoEspecialista(){
     return this.EspecialistasRef.valueChanges()as Observable<Especialistas[]>;
     }
+
+    traerTodoAdmin(){
+      return this.AdministradoresRef.valueChanges() as Observable<Administradores[]>
+    }
+  //esto dos traen especialistas y pacientes
+  //media hora buscando estos datos , mamita querida !!! EMPEZA A COMENTAR EL CODIGO CABEZON!!! de mi para mi
+
   TraerTodoEspeci(){
       return this.EspecialidadesRef.valueChanges() as Observable<any[]>;
     }

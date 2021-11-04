@@ -18,6 +18,7 @@ import { TablaTurnosComponent } from './tabla-turnos/tabla-turnos.component';
 
 
 
+
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -32,8 +33,7 @@ import { TablaTurnosComponent } from './tabla-turnos/tabla-turnos.component';
     ListaHorariosComponent,
     EmptyCardComponent,
     TablaTurnosComponent,
-
-  ],
+     ],
   imports: [
     CommonModule,
     RouterModule,

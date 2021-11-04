@@ -23,7 +23,9 @@
             [Especialista]="usuario"
           ></app-horarios>
         </div>
-
+        <div *ngIf="(tipo==='paciente')" >
+          <button class="btn btn-primary" (click)="iraHistorial()">HistorialClinico</button>
+        </div>
 
 
       </div>

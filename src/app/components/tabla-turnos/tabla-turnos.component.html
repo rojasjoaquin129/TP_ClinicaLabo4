@@ -30,7 +30,7 @@
         "
         style="cursor: pointer"
         *ngFor="let turno of this.turnosSelecionado"
-
+        (click)="seleccionarTurno(turno)"
       >
         <div
           class="d-flex flex-column justify-content-start align-items-start"
