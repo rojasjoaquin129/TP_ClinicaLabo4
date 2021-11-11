@@ -7,6 +7,7 @@ import { RegistrosComponent } from './registros/registros.component';
 import { ComponentesModule } from 'src/app/components/componentes.module';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { RegistroAdminComponent } from './registro-admin/registro-admin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { RegistroAdminComponent } from './registro-admin/registro-admin.componen
     RegistroAdminComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,

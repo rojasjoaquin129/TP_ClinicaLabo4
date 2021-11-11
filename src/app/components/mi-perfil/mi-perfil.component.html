@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="container mt-3">
+<div @soso class="container mt-3">
   <main class="content">
     <h1 class="text-center">Mi Perfil</h1>
 
@@ -11,8 +11,11 @@
             [usuario]="usuario"
             [tipo]='tipo'
           ></app-perfil>
-        </div>
 
+        </div>
+        <div  class="boton ml-5 mt-3" *ngIf="(tipo==='paciente')" >
+          <button class="btn btn-primary" (click)="iraHistorial()">HistorialClinico</button>
+        </div>
         <!-- Mis horarios (Sólo especialista)-->
         <div
           class="col-lg-6"
@@ -23,9 +26,7 @@
             [Especialista]="usuario"
           ></app-horarios>
         </div>
-        <div *ngIf="(tipo==='paciente')" >
-          <button class="btn btn-primary" (click)="iraHistorial()">HistorialClinico</button>
-        </div>
+
 
 
       </div>

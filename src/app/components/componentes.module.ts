@@ -15,6 +15,7 @@ import { ListaHorariosComponent } from './lista-horarios/lista-horarios.componen
 import { EmptyCardComponent } from './empty-card/empty-card.component';
 import { TablaTurnosComponent } from './tabla-turnos/tabla-turnos.component';
 import { ProfecionalesComponent } from './profecionales/profecionales.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -37,6 +38,7 @@ import { ProfecionalesComponent } from './profecionales/profecionales.component'
     ProfecionalesComponent,
      ],
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     RouterModule,
     FormsModule,

@@ -7,11 +7,25 @@ import {Administradores} from 'src/app/classes/Administradores';
 import { Pacientes } from 'src/app/classes/pasientes';
 import Swal from 'sweetalert2'
 import * as XLSX from 'xlsx'
-
+import{trigger,style,transition,animate, state} from'@angular/animations'
 @Component({
   selector: 'app-lista-especialistas',
   templateUrl: './lista-especialistas.component.html',
-  styleUrls: ['./lista-especialistas.component.scss']
+  styleUrls: ['./lista-especialistas.component.scss'],
+  animations:[
+    trigger('soso',[
+      state('void',style({
+
+        opacity:0
+      })),
+      transition(':enter',[
+        animate(1000,style({
+
+          opacity:1
+        }))
+      ])
+    ])
+  ]
 })
 export class ListaEspecialistasComponent implements OnInit {
   listaEspecialista:any[]=[];

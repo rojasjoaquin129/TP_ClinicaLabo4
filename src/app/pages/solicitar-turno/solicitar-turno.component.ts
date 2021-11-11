@@ -8,10 +8,25 @@ import { TurnosService } from 'src/app/service/turnos.service';
 import { addDays } from 'date-fns';
 import { formatConfirmShift } from 'src/app/fechas/fechasTurnos';
 import Swal from 'sweetalert2';
+import{trigger,style,transition,animate, state} from'@angular/animations';
 @Component({
   selector: 'app-solicitar-turno',
   templateUrl: './solicitar-turno.component.html',
-  styleUrls: ['./solicitar-turno.component.scss']
+  styleUrls: ['./solicitar-turno.component.scss'],
+  animations:[
+    trigger('soso',[
+      state('void',style({
+
+        opacity:0
+      })),
+      transition(':enter',[
+        animate(1000,style({
+
+          opacity:1
+        }))
+      ])
+    ])
+  ]
 })
 export class SolicitarTurnoComponent implements OnInit {
   public usuario: any ;

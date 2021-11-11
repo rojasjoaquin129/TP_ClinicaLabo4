@@ -7,14 +7,28 @@ import { Pacientes } from 'src/app/classes/pasientes';
 import { Turno } from 'src/app/classes/turnos';
 import { ExportarPdfService } from 'src/app/service/exportar-pdf.service';
 import { TurnosService } from 'src/app/service/turnos.service';
-
+import{trigger,style,transition,animate, state} from'@angular/animations'
 import {PdfMakeWrapper, Txt, Img,Table} from 'pdfmake-wrapper'
 
 
 @Component({
   selector: 'app-historial-clinico',
   templateUrl: './historial-clinico.component.html',
-  styleUrls: ['./historial-clinico.component.scss']
+  styleUrls: ['./historial-clinico.component.scss'],
+  animations:[
+    trigger('soso',[
+      state('void',style({
+
+        opacity:0
+      })),
+      transition(':enter',[
+        animate(1000,style({
+
+          opacity:1
+        }))
+      ])
+    ])
+  ]
 })
 export class HistorialClinicoComponent implements OnInit {
   usuario:any;

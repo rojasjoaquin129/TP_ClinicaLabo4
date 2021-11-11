@@ -1,6 +1,6 @@
 
-<div class="fondo">
-  <div  class="aparte" style="text-align: center;" *ngIf="!admin">
+<div  class="fondo">
+  <div @soso class="aparte" style="text-align: center;" *ngIf="!admin">
     <br>
     <div class="card  mt-5" (click)="paciente()" style="width: 600px; cursor: pointer;flex-grow: 1;">
       <img src="../../../../assets/paciente.jpg" alt="">
@@ -11,7 +11,7 @@
       </div>
     </div>
     <br>
-    <div (click)="especialista()" class="card mt-5"  style="width: 600px; cursor: pointer;flex-grow: 1;">
+    <div  (click)="especialista()" class="card mt-5"  style="width: 600px; cursor: pointer;flex-grow: 1;">
       <img src="../../../../assets/especialista(1).jpg" alt="">
       <div class="card-header">
         <div class="card-title">
@@ -22,7 +22,7 @@
   </div>
   <div   *ngIf="admin">
     <app-navbar></app-navbar>
-    <div class="card container mt-5" style="width: 800px; height: 350px;">
+    <div @soso class="card container mt-5" style="width: 800px; height: 350px;">
       <h1>QUE TIPO DE USUARIO QUIERE AGREGAR</h1>
 
      <button class="btn btn-primary mt-3 mb-3 pt-2 pb-2"    (click)="admistrador()">administrador</button>

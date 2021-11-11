@@ -5,11 +5,25 @@ import {Administradores} from 'src/app/classes/Administradores'
 import { AuthService } from 'src/app/service/auth.service';
 import * as XLSX from 'xlsx'
 import { timer } from 'rxjs';
-
+import{trigger,style,transition,animate, state} from'@angular/animations'
 @Component({
   selector: 'app-lista-pacientes',
   templateUrl: './lista-pacientes.component.html',
-  styleUrls: ['./lista-pacientes.component.scss']
+  styleUrls: ['./lista-pacientes.component.scss'],
+  animations:[
+    trigger('soso',[
+      state('void',style({
+
+        opacity:0
+      })),
+      transition(':enter',[
+        animate(1000,style({
+
+          opacity:1
+        }))
+      ])
+    ])
+  ]
 })
 export class ListaPacientesComponent implements OnInit {
   pacientesLista:Pacientes[]=[];

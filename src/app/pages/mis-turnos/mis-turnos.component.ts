@@ -7,10 +7,25 @@ import { TurnosService } from 'src/app/service/turnos.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { formatConfirmShift, formatConfirmTurno } from 'src/app/fechas/fechasTurnos';
 import { format } from 'date-fns';
+import{trigger,style,transition,animate, state} from'@angular/animations'
 @Component({
   selector: 'app-mis-turnos',
   templateUrl: './mis-turnos.component.html',
-  styleUrls: ['./mis-turnos.component.scss']
+  styleUrls: ['./mis-turnos.component.scss'],
+  animations:[
+    trigger('soso',[
+      state('void',style({
+
+        opacity:0
+      })),
+      transition(':enter',[
+        animate(1000,style({
+
+          opacity:1
+        }))
+      ])
+    ])
+  ]
 })
 export class MisTurnosComponent implements OnInit {
   usuario:any;
