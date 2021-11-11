@@ -1,5 +1,7 @@
 <app-navbar></app-navbar>
+
 <div class="container py-4">
+  <!--
   <div class="row">
     <div class="col-md-6 my-3">
       <div class="rounded-3">
@@ -30,6 +32,10 @@
     </div>
 
   </div>
+  -->
+  <!-- Finder -->
+
+
   <div class="row">
     <div class="col">
       <div class="rounded-3">
@@ -39,11 +45,41 @@
         [pacienteSeleccionado]="pacienteSeleccionado"
         [tipo]="tipo"
         [turnos]="turnos"
+        [historialMedico]="true"
+        (elTurno)='SeleccionoTurno($event,contenido)'
         ></app-tabla-turnos>
       </div>
     </div>
   </div>
 
+  <ng-template #contenido >
 
+    <div class="modal-header">
+      <h5 class="modal-title  ">Historial Clinico</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal"   (click)="modalRef?.hide()" aria-label="Close">
+        <span aria-hidden="true"></span>
+      </button>
+      <p>Fecha Del historial: {{elSupremoTurno?.Terminado}}</p>
+    </div>
+    <div class="modal-body">
+      <p>Diagnostico:</p>
+      <p>{{elSupremoTurno?.diagnostico}}</p>
+      <br>
+      <p> Altura : {{elSupremoTurno?.pasienteInfo?.altura}}</p>
+      <br>
+      <p> Peso : {{elSupremoTurno?.pasienteInfo?.altura}}kg</p>
+      <br>
+      <p> Temperatura : {{elSupremoTurno?.pasienteInfo?.temperatura}}kg</p>
+      <br>
+      <p> PrecionAlta : {{elSupremoTurno?.pasienteInfo?.presion?.precionAlta}}</p>
+      <br>
+      <p> PrecionBaja : {{elSupremoTurno?.pasienteInfo?.presion?.precionBaja}}</p>
+    </div>
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-danger"  (click)="modalRef?.hide()" data-bs-dismiss="modal">Close</button>
+    </div>
+
+</ng-template>
 
 </div>

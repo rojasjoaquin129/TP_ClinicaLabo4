@@ -49,27 +49,29 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   setSeleccionarTurno(turno:Turno|null){
+    if(this.turnoSeleccionado){
+      this.turnoSeleccionado=null;
+    }
     this.turnoSeleccionado=turno;
     this.turnoFrom.patchValue({turno:this.turnoSeleccionado?.dia});
 
   }
 
 
-  selecEspecialidad(especialidad:Especialidad |null){
+  async selecEspecialidad(especialidad:Especialidad |null){
     this.especialidad=especialidad;
-
+    this.turnos=[];
+    this.turnosSinFiltrar=[];
     this.turnoFrom.patchValue({
       especialidad:this.especialidad
     });
-    this.seleccionoEspecialidad=true;
-  }
+    if(this.seleccionoEspecialidad){
+      this.seleccionoEspecialidad=false;;
+    }else{
+      this.seleccionoEspecialidad=true;
+    }
 
-
-  async SelecEspecialista(Especialsita:Especialistas|Pacientes|null){
-    this.turnos=[];
-    this.turnosSinFiltrar=[];
-    this.EspecialistaSeleccionado=Especialsita;
-    if(this.EspecialistaSeleccionado){
+    if(this.seleccionoEspecialidad && this.EspecialistaSeleccionado && this.pacienteSeleccionado){
       this.turnoFrom.patchValue({
         especialista:this.EspecialistaSeleccionado.nombre
       });
@@ -77,15 +79,17 @@ export class SolicitarTurnoComponent implements OnInit {
         email:this.EspecialistaSeleccionado.mail,
         role:'especialista'
       });
+
       const turnosa:Turno[]=[];
       resutlado.subscribe((turnos:Turno[])=>{
         this.turnosSinFiltrar=turnos;
         const dia=new Date();
         const dateEn15Dias=addDays(dia,15).getTime();
+        const hoy=dia.getTime()
         this.turnosSinFiltrar?.forEach((turno:Turno)=>{
         const tiempo=new Date(turno.dia).getTime();
-          if(turno.estado==='disponible' && tiempo < dateEn15Dias){
-            if(turno.especialidad===this.especialidad.nombre){
+          if(turno.estado==='disponible' && tiempo < dateEn15Dias && tiempo>=hoy){
+            if(turno.especialidad===this.especialidad){
               turnosa.push(turno);
             }
           }
@@ -112,9 +116,16 @@ export class SolicitarTurnoComponent implements OnInit {
 
 
 
+   SelecEspecialista(Especialsita:Especialistas|Pacientes|null){
+
+    this.EspecialistaSeleccionado=Especialsita;
+  }
+
+
+
 
   SeleccionarPaciente(paciente:Especialistas |Pacientes |null){
-    console.log(paciente);
+
     this.pacienteSeleccionado=paciente;
     this.turnoFrom.patchValue({
       paciente:this.pacienteSeleccionado?.nombre

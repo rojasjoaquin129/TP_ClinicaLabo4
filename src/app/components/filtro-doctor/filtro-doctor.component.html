@@ -57,30 +57,36 @@
         class="
           list-group-item list-group-item-action
           d-flex
-          justify-content-between
+
+          justify-content-center
           align-items-center
+          mb-2
+
         "
-        style="cursor: pointer"
+        style="cursor: pointer; border-radius: 15px;"
         [ngClass]="{ active: this.usuario?.dni === user.dni }"
         *ngFor="let user of this.listaCopiada"
         (click)="this.SeleccionarUsuario(user)"
       >
         <div
-          class="d-flex justify-content-start align-items-center"
-          style="flex: 1"
+          class="d-flex justify-content-start align-items-center  flex-column"
+
         >
+        <div>
+          <h6 class="my-0 mb-2" >{{ user.nombre }} {{ user.apellido }}</h6>
+          <!-- Finder
+          <h6 class="my-0">{{ user.mail }}</h6>
+          -->
+        </div>
           <img
-            class="me-3 rounded-circle"
+             style="border-radius: 15px;"
             [src]="user.fotoUno"
             alt="User image"
-            width="55"
-            height="55"
+            width="100"
+            height="100"
           />
 
-          <div>
-            <h6 class="my-0">{{ user.nombre }} {{ user.apellido }}</h6>
-            <h6 class="my-0">{{ user.mail }}</h6>
-          </div>
+
         </div>
   <span *ngIf="this.listaCopiada?.length === 0" class="list-group-item">
     No existe el usuario

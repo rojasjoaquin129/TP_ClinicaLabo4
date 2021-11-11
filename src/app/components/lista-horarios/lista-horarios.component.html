@@ -14,14 +14,17 @@
       *ngFor="let groupByShifts of listaCopiada | keyvalue: this.originalOrder"
     >
       <div class="group">
-        <div class="date-wrapper text-center my-2">
-          <span>{{ groupByShifts.key }}</span>
+        <div class="col text-center">
+          <button  (click)="dato()" class="btn btn-lg btn-primary pt-4 pb-4 mt-2 mb-2">
+            <span>{{ groupByShifts.key }}</span>
+          </button >
         </div>
 
-        <div class="list-group">
+
+        <div *ngIf="subida"  class="list-group">
           <button
             *ngFor="let turno of groupByShifts.value"
-            class="list-group-item list-group-item-action"
+            class="list-group-item list-group-item-action text-center"
             [ngClass]="{ active: turnoSeleccionado?.id === turno.id }"
             (click)="this.selectShift(turno)"
           >

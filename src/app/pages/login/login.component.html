@@ -1,6 +1,6 @@
 <main class="text-center">
   <section class="form-signin page-wrap">
-      <form [formGroup]="loginFrom" (ngSubmit)="ingresar()" #formulario='ngForm'    novalidate >
+      <form  @viniendo [formGroup]="loginFrom" (ngSubmit)="ingresar()" #formulario='ngForm'    novalidate >
         <img class="mb-4" src="../../../assets/reporte.png" alt="" width="72" height="72">
         <h1 class="h3 mb-3 fw-normal">Login</h1>
 
@@ -39,8 +39,8 @@
         <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" [disabled]="!formulario.form.valid" >Ingresar</button>
 
       </form>
-      <div class="opa mt-4" >
-        <div style="  display: flex;justify-content: space-between;" class="ml-1 mr-1" >
+      <div @yendo  class="opa mt-4" >
+        <div  style="   display: flex;justify-content: space-between;" class="ml-1 mr-1" >
           <div>
             <img src="../../../assets/pacienteUnouno.jpg"  (click)="acceder('pacienteUno')" class='imgRedonda ml-1 mr-1'alt="">
             <p>Paciente Uno</p>

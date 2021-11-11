@@ -20,6 +20,8 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
   @Input() tipo:string='';
   @Input() turnos:Turno[]|null=null;
   @Output() elTurno:EventEmitter<Turno |null>;
+  busqueda:any;
+  turnosCopiado:Turno[]|null=null;
   public turnosSelecionado:Turno[]|null=null;
   turnosCompletos:Turno[]|null=null;
   tituloModalRechazarCancelacion:string='';
@@ -32,6 +34,7 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
   encuestaFrom:FormGroup;
   historialModal=false;
   reseniaParaVer:string='';
+
   public comentario=new FormControl(null,[Validators.required,Validators.minLength(6)]);
   constructor(
     private turnosService:TurnosService,
@@ -177,6 +180,74 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
     this.filtrarLista(this.turnosSelecionado);
   }
   }
+  filtarLista(){
+    if(this.tipo==='especialista'){
+      this.turnosSelecionado=this.turnos;
+      if(this.turnosSelecionado){
+        const listaFiltrada=this.turnosSelecionado.filter(
+          (turno:Turno)=>{
+            return (
+              turno.especialidad?.toLowerCase()
+              .includes(this.busqueda.toLowerCase()) ||
+              turno.paciente?.apellido.toLowerCase()
+              .includes(this.busqueda.toLowerCase()) ||
+              turno.paciente?.nombre.toLowerCase()
+              .includes(this.busqueda.toLowerCase()) ||
+              turno.paciente?.mail.toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.diagnostico?.toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.pasienteInfo?.altura.toString().toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.pasienteInfo?.peso.toString().toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.pasienteInfo?.presion.precionAlta.toString().toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.pasienteInfo?.presion.precionBaja.toString().toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.pasienteInfo?.temperatura.toString().toLowerCase()
+              .includes(this.busqueda.toLowerCase())
+            );
+          }
+        );
+        this.turnosSelecionado=listaFiltrada;
+      }
+    }else{
+      this.turnosSelecionado=this.turnos;
+      if(this.turnosSelecionado){
+        const listaFiltrada=this.turnosSelecionado.filter(
+          (turno:Turno)=>{
+            return (
+              turno.especialidad?.toLowerCase()
+              .includes(this.busqueda.toLowerCase()) ||
+              turno.especialista?.apellido.toLowerCase()
+              .includes(this.busqueda.toLowerCase()) ||
+              turno.especialista?.nombre.toLowerCase()
+              .includes(this.busqueda.toLowerCase()) ||
+              turno.especialista?.mail.toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.diagnostico?.toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.pasienteInfo?.altura.toString().toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.pasienteInfo?.peso.toString().toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.pasienteInfo?.presion.precionAlta.toString().toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.pasienteInfo?.presion.precionBaja.toString().toLowerCase()
+              .includes(this.busqueda.toLowerCase())||
+              turno.pasienteInfo?.temperatura.toString().toLowerCase()
+              .includes(this.busqueda.toLowerCase())
+            );
+          }
+        );
+        this.turnosSelecionado=listaFiltrada;
+      }
+
+    }
+  }
+
+
 
 
    filtrarLista(listaTurnos:Turno[]|null){
@@ -266,6 +337,7 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
   }
 
   async onCompletarTurno(){
+
     const{
       comment,
       diagnostico,
@@ -276,13 +348,13 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
       presionBaja
     }=this.historialTurnoForm.getRawValue();
     try{
-      if(this.turnoSeleccionado && this.pacienteSeleccionado){
+      if(this.turnoSeleccionado){
         const completoTurno:Turno={
           ...this.turnoSeleccionado,
           estado:'finalizado',
           comentarioCompleto:comment,
           diagnostico:diagnostico,
-          Terminado:new Date().toString(),
+          Terminado:Date.now(),
           pasienteInfo:{
             altura:altura,
             peso:peso,
@@ -297,6 +369,7 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
         await this.turnosService.subirTurno(completoTurno).then(()=>{
           this.mensaje('Estado del turno',
           'El turno fue completado y agendado en la historia clínica con éxito!');
+
         }
         );
       }else{
@@ -312,6 +385,7 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
   finalizarTurno(turno:Turno){
     this.turnoSeleccionado=turno;
     this.historialModal=true;
+
   }
   async cancelacionYRechazarTurno(){
     console.log(this.turnoSeleccionado);
@@ -358,7 +432,8 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
   }
 
   seleccionarTurno(turno:Turno){
-    if(this.historialMedico){
+    if(this.historialMedico && turno.estado==='finalizado' ){
+      console.log('emite');
       this.elTurno.emit(turno);
     }
   }

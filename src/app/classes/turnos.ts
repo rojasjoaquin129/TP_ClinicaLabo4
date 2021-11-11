@@ -14,7 +14,7 @@ export class Turno{
   comentarioCompleto?:string;
   encuestado?:boolean;
   calificado?:boolean;
-  Terminado?:string|Date;
+  Terminado!:string|Date|number;
   diagnostico?:string;
   pasienteInfo?:{
     altura:number;

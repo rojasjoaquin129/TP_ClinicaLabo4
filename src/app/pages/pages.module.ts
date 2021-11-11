@@ -13,9 +13,11 @@ import { MisTurnosComponent } from './mis-turnos/mis-turnos.component';
 import { SolicitarTurnoComponent } from './solicitar-turno/solicitar-turno.component';
 import { PdfComponent } from './pdf/pdf.component';
 import { HistorialClinicoComponent } from './historial-clinico/historial-clinico.component';
-
-
-
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+PdfMakeWrapper.setFonts(pdfFonts);
 @NgModule({
   declarations: [
     LoginComponent,
@@ -25,16 +27,18 @@ import { HistorialClinicoComponent } from './historial-clinico/historial-clinico
     MisTurnosComponent,
     SolicitarTurnoComponent,
     PdfComponent,
-    HistorialClinicoComponent
+    HistorialClinicoComponent,
 
   ],
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     FormsModule,
     RouterModule,
     ComponentesModule,
     RegistrosModule,
     ReactiveFormsModule,
+    ModalModule.forRoot()
   ]
 })
 export class PagesModule { }

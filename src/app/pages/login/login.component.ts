@@ -5,11 +5,37 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import Swal from 'sweetalert2'
 import { AuthService } from 'src/app/service/auth.service';
 import { toRelativeImport } from '@angular/compiler-cli/src/ngtsc/file_system';
-
+import{trigger,style,transition,animate, state} from'@angular/animations'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations:[
+    trigger('yendo',[
+      state('void',style({
+        transform:'translateY(-100%)',
+        opacity:0
+      })),
+      transition(':enter',[
+        animate(1500,style({
+          transform:'translateY(0)',
+          opacity:1
+        }))
+      ])
+    ]),
+    trigger('viniendo',[
+      state('void',style({
+        transform:'translateX(200%)',
+        opacity:0
+      })),
+      transition(':enter',[
+        animate(1500,style({
+          transform:'translateY(0)',
+          opacity:1
+        }))
+      ])
+    ])
+  ]
 })
 export class LoginComponent implements OnInit {
 

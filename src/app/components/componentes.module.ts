@@ -14,6 +14,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { ListaHorariosComponent } from './lista-horarios/lista-horarios.component';
 import { EmptyCardComponent } from './empty-card/empty-card.component';
 import { TablaTurnosComponent } from './tabla-turnos/tabla-turnos.component';
+import { ProfecionalesComponent } from './profecionales/profecionales.component';
 
 
 
@@ -33,6 +34,7 @@ import { TablaTurnosComponent } from './tabla-turnos/tabla-turnos.component';
     ListaHorariosComponent,
     EmptyCardComponent,
     TablaTurnosComponent,
+    ProfecionalesComponent,
      ],
   imports: [
     CommonModule,

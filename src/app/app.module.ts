@@ -8,6 +8,7 @@ import { FirebaseModule } from './firebase/firebase.module';
 import { PagesModule } from './pages/pages.module';
 import { RecaptchaModule } from "ng-recaptcha";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PagesModule,
     FirebaseModule,
     RecaptchaModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

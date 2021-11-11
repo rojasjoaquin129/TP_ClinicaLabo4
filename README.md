@@ -1,27 +1,59 @@
-# Clinica
+<h1 align="center"> :computer: 2021 - 2do cuatrimestre - Laboratorio 4 - 4°B :computer: </h1>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.8.
+<h1 align="center"> TP - FINAL ClinicaRMM </h1>
 
-## Development server
+**Deploy en Heroku:** [Ir a ClinicaRMM](https://clinicautn.herokuapp.com)
+br>
+<br>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Idea del proyecto
 
-## Code scaffolding
+En este Tp se busca dise una app que simule la actividad de una clinica online, siguiendo:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<i>"La clínica OnLine, especialista en salud, cuenta actualmente con consultorios (6 en la actualidad), dos laboratorios (físicos en la clínica), y una sala de espera general. Está abierta al público de lunes a viernes en el horario de 8:00 a 19:00, y los sábados en el horario de 8:00 a 14:00.
+Trabajan en ella profesionales de diversas especialidades, que ocupan los consultorios acorde a su disponibilidad, y reciben en ellos pacientes con turno para consulta o tratamiento. Dichos turnos son pedidos por la web seleccionando el profesional o la especialidad. La duración mínima de un turno es 30 minutos.
+Los profesionales pueden cambiar la duración según su especialidad. Estos profesionales pueden tener más de una especialidad.
+También contamos con un sector dentro de la clínica que se encarga de la organización y administración de la misma."
+</i>
 
-## Build
+## Primeros pasos en la clinica
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+En primer lugar te encontraras con una pagina de bienvenida donde se encuentra el logo de la clinica y un saludo. En la parte superior se observa dos opciones: un Inicio de sesion y un Registro donde podras registrar.
 
-## Running unit tests
+Hay tres roles a los cuales el usuario podrá corresponder. Dichos roles y sus funcionalidades se enumeran a continuación:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- <strong>Rol 'Paciente': </strong>sera el público de la clínica. Tendrá disponibles las siguientes acciones:
+- - Solicitar turno.
+- - Ver sus turnos agendados.
+- - Gestionar sus turnos.
+- - Consultar su historia clinica.
 
-## Running end-to-end tests
+- <strong>Rol 'Profesional':</strong> serán los médicos y técnicos que atenderán a los pacientes. Tendrá disponibles las siguientes acciones:
+- - Gestionar sus horarios disponibles.
+- - Gestionar sus turnos reservados.
+- - Ingresar diagnósticos, comentarios y observaciones realizados durante el encuentro con el paciente.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- <strong>Rol 'Admin':</strong> será el administrador de la aplicación, debe tener algun nivel de jerarquía. Tendrá disponibles las siguientes acciones:
+- - Generar nuevos usuarios.
+- - Gestionar los usuarios.
+- - Consultar y gestionar los turnos de toda la clínica.
+- - Consultar la historia clinica de los pacientes.
 
-## Further help
+## Pantalla Bienvenido
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+</br>
+<img src="/src/assets/imagenesgit/bienvenida.jpg" >
+
+## Pantalla Registro
+
+</br>
+<img src="/src/assets/imagenesgit/fotoLogin.jpg" >
+
+## Pantalla Home
+
+</br>
+<img src="/src/assets/imagenesgit/Fotohome.jpg" >
+
+---
+
+⌨️ _UTN-FRA_ ⌨️

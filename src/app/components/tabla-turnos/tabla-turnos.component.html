@@ -1,11 +1,22 @@
+
 <app-spinner
   [isLoading]="!this.turnosSelecionado"
   [text]="'Cargando lista de turnos'"
 ></app-spinner>
+<!-- Finder -->
+<div  *ngIf="this.turnosSelecionado"class="input-group mb-3">
+  <input
+    type="text"
+    class="form-control"
+    [(ngModel)]="busqueda"
+    placeholder="Buscar Turno"
+    (keyup)="filtarLista()"
+  />
+
+</div>
 <div *ngIf="this.turnosSelecionado && turnosSelecionado.length === 0">
   <app-empty-card [text]="('No hay turnos')"></app-empty-card>
 </div>
-
 <div class="mb-3 animate__animated animate__fadeIn" *ngIf="this.turnosSelecionado?.length ">
   <!-- Count list -->
   <h4
@@ -228,7 +239,7 @@
 <!-- modal Encuesta-->
 
 
-<div class="modal fade"  id="EncuestaModal">
+<div class="modal fade"  id="EncuestaModal" style="z-index: 99;">
   <div class="modal-dialog  modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -306,7 +317,7 @@
 
 
 <!--  modal de cancelacion-->
-<div *ngIf="modalCancelyRechazar"  class="modal fade" id="commentModal" tabindex="-1">
+<div *ngIf="modalCancelyRechazar"  class="modal fade" id="commentModal" style="z-index: 99;">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -363,7 +374,7 @@
   </div>
 </div>
 <!-- historial modal -->
-<div class="modal fade" id="completedModal" tabindex="-1">
+<div class="modal fade" id="completedModal"   tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -380,7 +391,7 @@
         (ngSubmit)="onCompletarTurno()"
       >
         <div class="modal-body">
-          {{ historialTurnoForm.getRawValue() | json }}
+
 
           <div class="mb-3">
             <h5 for="txtareaComment" class="form-label">

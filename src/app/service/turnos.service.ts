@@ -102,7 +102,8 @@ export class TurnosService {
               dia:resultado.toString(),
               especialista:especilaista,
               estado:'disponible',
-              especialidad:especialidad
+              especialidad:especialidad,
+              Terminado:''
             };
             this.addTurno(newTurno);
             if(j<to && duracion===30){

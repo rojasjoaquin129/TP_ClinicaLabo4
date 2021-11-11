@@ -1,8 +1,10 @@
+<!-- Finder
 <app-spinner
 [isLoading]="especialidades.length === 0"
   [text]="'Cargando lista de especialidades...'"
 >
 </app-spinner>
+-->
 <div
   class="my-3 animate__animated animate__fadeIn"
   *ngIf="this.especialidades.length !== 0">
@@ -25,10 +27,21 @@
   <div class="list-group" *ngIf="(this.tipo==='paciente' || this.tipo==='admin')">
     <button
       *ngFor="let specialty of this.listacopiada"
-      class="list-group-item list-group-item-action"
-      [ngClass]="{ active: this.especialidadSeleccionada?.id === specialty.id }"
+      class="list-group-item list-group-item-action mb-3 "
+      style="border-radius: 15px;"
+      [ngClass]="{ active: this.especialidadSeleccionada === specialty}"
       (click)="this.SelecEspecialidad(specialty)">
-      <h6  class="my-0">{{ specialty.nombre }}</h6>
+      <div class="d-flex justify-content-start align-items-center  flex-column">
+        <h6  class="text-center">{{specialty}}</h6>
+        <img
+        class=" text-center" style="border-radius: 15px;"
+        src="../../../assets/especialidad.jpg"
+        alt="User image"
+        width="100"
+        height="100"
+      />
+      </div>
+
     </button>
 
     <span *ngIf="this.listacopiada?.length === 0" class="list-group-item">

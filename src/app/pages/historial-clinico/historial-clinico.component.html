@@ -1,5 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container py-4">
+
+  <!--
   <div class="row">
     <div class="col-md-6 my-3">
       <div class="rounded-3">
@@ -28,44 +30,58 @@
         ></app-filtro-doctor>
       </div>
     </div>
+    </div>
+    -->
 
-  </div>
   <div class="row">
-    <div class="col">
-      <div class="rounded-3">
-        <h2>Turnos</h2>
+    <div class="col" >
+      <div class="rounded-3 ">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Historial de cada Encuentro</h2>
+          <button  (click)="VerHistoriaClinica()"  *ngIf="this.tipo==='paciente'" class=" btn btn-primary">Exportar en pdf</button>
+        </div>
+
         <app-tabla-turnos
         [especialistaSelecionado]="especialistaSeleccionado"
         [pacienteSeleccionado]="pacienteSeleccionado"
         [historialMedico]="true"
         [tipo]="tipo"
         [turnos]="turnos"
-        (elTurno)='SeleccionoTurno($event)'
+        (elTurno)='SeleccionoTurno($event,contenido)'
+         (change)='abrirModal(contenido)'
         ></app-tabla-turnos>
       </div>
     </div>
   </div>
-  <div *ngIf="activarModal">
-    <div class="modal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
+  <ng-template #contenido >
+
           <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"  (click)="!activarModal" aria-label="Close">
+            <h5 class="modal-title pull left ">Historial Clinico</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"   (click)="modalRef?.hide()" aria-label="Close">
               <span aria-hidden="true"></span>
             </button>
+            <p>Fecha De historial: {{elSupremoTurno?.Terminado}}</p>
           </div>
           <div class="modal-body">
+            <p>Diagnostico :</p>
             <p>{{elSupremoTurno?.diagnostico}}</p>
+            <br>
+            <p> Altura : {{elSupremoTurno?.pasienteInfo?.altura}} cm</p>
+            <br>
+            <p> Peso : {{elSupremoTurno?.pasienteInfo?.altura}}kg</p>
+            <br>
+            <p> Temperatura : {{elSupremoTurno?.pasienteInfo?.temperatura}}°c</p>
+            <br>
+            <p> PrecionAlta : {{elSupremoTurno?.pasienteInfo?.presion?.precionAlta}}</p>
+            <br>
+            <p> PrecionBaja : {{elSupremoTurno?.pasienteInfo?.presion?.precionBaja}}</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" (click)="!activarModal" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger"  (click)="modalRef?.hide()" data-bs-dismiss="modal">Close</button>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
+  </ng-template>
 
 
 </div>

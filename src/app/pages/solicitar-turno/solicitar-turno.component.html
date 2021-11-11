@@ -3,29 +3,28 @@
   <div class="row">
     <div class="col-md-6 my-3">
       <div class="rounded-3">
-        <h2>Especialidad</h2>
-        <app-especialidades
-        [tipo]="('paciente')"
-          (espSelec)="this.selecEspecialidad($event)"
-        ></app-especialidades>
+        <h2>Especialista</h2>
+        <app-filtro-doctor
+          (usuarioSeleccionado)="this.SelecEspecialista($event)"
+          [tipo]="('especialistas')"
+        ></app-filtro-doctor>
       </div>
     </div>
     <div class="col-md-6 my-3">
       <div class="rounded-3">
-        <h2>Especialista</h2>
-
-        <app-filtro-doctor
-          *ngIf="this.seleccionoEspecialidad"
-          (usuarioSeleccionado)="this.SelecEspecialista($event)"
-          [Especialidad]="this.especialidad"
-          [tipo]="('especialistas')"
-        ></app-filtro-doctor>
-
-        <div *ngIf="!this.seleccionoEspecialidad">
-          Seleccione una especialidad para ver los especialistas disponibles...
+        <h2>Especialidad</h2>
+        <app-especialidades
+        *ngIf="this.EspecialistaSeleccionado"
+        [tipo]="('paciente')"
+        [usuario]="this.EspecialistaSeleccionado"
+          (espSelec)="this.selecEspecialidad($event)"
+        ></app-especialidades>
+        <div *ngIf="!this.EspecialistaSeleccionado">
+          Seleccione una especialista para ver las especialidades disponibles ...
         </div>
       </div>
     </div>
+
   </div>
 
 
