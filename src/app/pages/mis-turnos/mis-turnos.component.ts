@@ -69,6 +69,7 @@ export class MisTurnosComponent implements OnInit {
   }
 
   async obtenerTurnos(tipo:string){
+    this.turnos=[];
     let resultado;
     if(tipo!=='admin'){
       resultado =await this.turnosService.traerTurnosPorEmail({
@@ -79,10 +80,28 @@ export class MisTurnosComponent implements OnInit {
       resultado=this.turnosService.traerTodoTurno()
     }
     resultado.subscribe((Turnitos:Turno[])=>{
-      this.turnos=Turnitos;
+      Turnitos.forEach((turno:Turno)=>{
+        if(!this.verificarTurnos(this.turnos,turno)){
+          this.turnos?.push(turno);
+        }
+      })
     });
   }
 
+  verificarTurnos(listaDeTurnos:Turno[]|null,turno:Turno){
+    let flag=false
+    if(listaDeTurnos?.length===0){
+      flag=false;
+    }else{
+      listaDeTurnos?.forEach((turnillo:Turno)=>{
+        if(turnillo.id===turno.id){
+          flag=true;
+        }
+      })
+    }
+    return flag;
+
+  }
   filtarLista(){
 
   }

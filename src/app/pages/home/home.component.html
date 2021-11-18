@@ -1,2 +1,16 @@
 <app-navbar></app-navbar>
-<p>home works!</p>
+
+<div @enterState *ngIf="tipo==='admin'" class="container mt-5">
+  <div class="row">
+    <div>
+      <h2>Graficos</h2>
+    </div>
+    <div class="col text-center">
+      <button class="btn btn-lg btn-primary ml-6 "  >Entradas</button>
+      <button class="btn btn-lg btn-success ml-6 "  >Turno Por Especialidad</button>
+      <button class="btn btn-lg btn-info ml-6 "  >Turno Por Dia</button>
+      <button class="btn btn-lg btn-warning ml-6 "  >Cantidad de turnos solicitado</button>
+      <button class="btn btn-lg btn-danger ml-6 "  >Cantidad de turnos finalizados</button>
+    </div>
+  </div>
+</div>

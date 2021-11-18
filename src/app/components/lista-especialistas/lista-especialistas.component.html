@@ -1,5 +1,20 @@
 <app-navbar></app-navbar>
-<table @soso class="table table-hover">
+<div @enterState class="container py-4">
+<div class="card-deck text-center p-3 "  >
+  <div class="card m-3 esto"
+   *ngFor="let especialista of listaEspecialista" style="width: 18rem;">
+    <img class="card-img-top" (click)="llevarPaciente(especialista)" [src]="especialista.fotoUno" alt="Card image cap">
+    <div class="card-body">
+      <p class="card-text text-center">{{especialista.nombre}} {{especialista.apellido}}</p>
+      <div class="row">
+        <button class="btn btn-danger" *ngIf="especialista.enabled" (click)="changeEstado(especialista.id,false)" >Inhabilitar cuenta</button>
+        <button class="btn btn-success" *ngIf="!especialista.enabled" (click)="changeEstado(especialista.id,true)">Habilitar cuenta</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<table  *ngIf="exportar"  class="table table-hover">
   <thead >
     <tr class="table-dark">
       <th scope="col">Nombre</th>
@@ -84,7 +99,7 @@
 
   </tbody>
 </table>
-<div class="container">
+<div @enterState class="container">
   <div class="row">
     <div class="col text-center">
       <button class="btn btn-lg btn-primary ml-6 "  (click)="exportExcel()">Exportar a Excel </button>

@@ -1,0 +1,10 @@
+
+<div class="card-deck text-center p-3 " >
+  <div class="card m-3 esto" (click)="llevarPaciente(item)"
+   *ngFor="let item of listaDos" style="width: 18rem;">
+    <img class="card-img-top" [src]="item.paciente?.fotoUno" alt="Card image cap">
+    <div class="card-body">
+      <p class="card-text text-center">{{item.paciente?.nombre}} {{item.paciente?.apellido}}</p>
+    </div>
+  </div>
+</div>

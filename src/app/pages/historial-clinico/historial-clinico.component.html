@@ -1,4 +1,7 @@
 <app-navbar></app-navbar>
+
+
+
 <div class="container py-4">
 
   <!--
@@ -32,13 +35,49 @@
     </div>
     </div>
     -->
+    <div  *ngIf="tipo==='especialista'">
+      <div *ngIf="turnos?.length !== 0 && !mostrarPacientesTurnos">
+          <app-cards-lista
+          [listaTurno]="turnos"
+          (TurnosFiltrados)="FiltroPorPaciente($event)"
+          ></app-cards-lista>
+      </div>
+      <div class="col" *ngIf="mostrarPacientesTurnos">
+        <div @soso class= "rounded-3 ">
+          <div class="d-flex justify-content-between align-items-center">
+            <h2>Historial de cada Encuentro</h2>
+            <button  (click)="volverAtras()"  class=" btn btn-primary">Volver A Listado Pacientes</button>
+          </div>
 
+          <app-tabla-turnos
+          [especialistaSelecionado]="especialistaSeleccionado"
+          [pacienteSeleccionado]="pacienteSeleccionado"
+          [historialMedico]="true"
+          [tipo]="tipo"
+          [turnos]="turnosPorPaciente"
+          (elTurno)='SeleccionoTurno($event,contenido)'
+           (change)='abrirModal(contenido)'
+          ></app-tabla-turnos>
+        </div>
+      </div>
+
+    </div>
   <div class="row">
-    <div class="col" >
+
+
+    <div class="col" *ngIf="tipo!=='especialista'">
       <div @soso class= "rounded-3 ">
         <div class="d-flex justify-content-between align-items-center">
           <h2>Historial de cada Encuentro</h2>
-          <button  (click)="VerHistoriaClinica()"  *ngIf="this.tipo==='paciente'" class=" btn btn-primary">Exportar en pdf</button>
+          <div *ngIf="this.tipo==='paciente'">
+            Filtrar
+            <select [(ngModel)]="opcionSeleccionado" (change)="capturar()" (click)="obtenerListaDeEspecialidades()"  class="form-select"   aria-label="Default select example">
+              <option value="todos">Todos</option>
+              <option *ngFor="let especialidad of ListaEspecialidades" [value]="especialidad">{{especialidad}}</option>
+
+            </select>
+          </div>
+          <button  (click)="filtrarEspecialidadTurno()"  *ngIf="this.tipo==='paciente'" class=" btn btn-primary">Exportar en pdf</button>
         </div>
 
         <app-tabla-turnos
@@ -67,14 +106,15 @@
             <p>{{elSupremoTurno?.diagnostico}}</p>
             <br>
             <p> Altura : {{elSupremoTurno?.pasienteInfo?.altura}} cm</p>
-            <br>
             <p> Peso : {{elSupremoTurno?.pasienteInfo?.altura}}kg</p>
-            <br>
             <p> Temperatura : {{elSupremoTurno?.pasienteInfo?.temperatura}}°c</p>
-            <br>
             <p> PrecionAlta : {{elSupremoTurno?.pasienteInfo?.presion?.precionAlta}}</p>
-            <br>
-            <p> PrecionBaja : {{elSupremoTurno?.pasienteInfo?.presion?.precionBaja}}</p>
+            <p > PrecionBaja : {{elSupremoTurno?.pasienteInfo?.presion?.precionBaja}}</p>
+            <div *ngIf="elSupremoTurno?.pasienteInfo?.datodinamicoUno?.clave">
+              <p> {{elSupremoTurno?.pasienteInfo?.datodinamicoUno?.clave}} : {{ elSupremoTurno?.pasienteInfo?.datodinamicoUno?.valor }}</p>
+              <p> {{elSupremoTurno?.pasienteInfo?.datodinamicoDos?.clave}} : {{ elSupremoTurno?.pasienteInfo?.datodinamicoDos?.valor }}</p>
+            </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary">Save changes</button>

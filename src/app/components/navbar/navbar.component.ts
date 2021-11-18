@@ -35,6 +35,7 @@ export class NavbarComponent implements OnInit {
 
 
   public logOut() {
+    localStorage.clear();
     this.authServise.singOut().then(()=>{
       localStorage.clear();
       this.router.navigate(['']);

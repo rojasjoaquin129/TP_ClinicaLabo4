@@ -4,10 +4,19 @@
     [text]="Cargando lista de pacientes"
 </app-spinner>
 
+<div @enterState class="container py-4">
+  <div class="card-deck text-center p-3 "  >
+    <div class="card m-3 esto"
+     *ngFor="let especialista of listaPacientes" style="width: 18rem;">
+      <img class="card-img-top" (click)="llevarPaciente(especialista)" [src]="especialista.fotoUno" alt="Card image cap">
+      <div class="card-body">
+        <p class="card-text text-center">{{especialista.nombre}} {{especialista.apellido}}</p>
+      </div>
+    </div>
+  </div>
+  </div>
 
-
-
-<table  @soso class="table table-hover" id='excel-table'>
+<table  *ngIf="exportar" class="table table-hover" id='excel-table'>
   <thead>
 
     <tr class="table-dark" >
@@ -60,7 +69,7 @@
 
   </tbody>
 </table>
-<div class="container">
+<div @enterState class="container">
   <div class="row">
     <div class="col text-center">
       <button class="btn btn-lg btn-primary ml-6 "  (click)="exportExcel()">Exportar a Excel </button>

@@ -78,6 +78,18 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
         Validators.min(80),
         Validators.max(84),
       ]),
+      datoDinamicoUnoClave:new FormControl('',[
+        Validators.required,
+      ]),
+      datoDinamicoUnoValor:new FormControl('',[
+        Validators.required,
+      ]),
+      datoDinamicoDosClave:new FormControl('',[
+        Validators.required,
+      ]),
+      datoDinamicoDosValor:new FormControl('',[
+        Validators.required,
+      ]),
     })
     this.encuestaFrom=this.fB.group({
       preguntaUno:new FormControl('', [Validators.required]),
@@ -283,8 +295,8 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
    }
   ngOnInit(): void {
     if(this.turnos){
+      this.turnosSelecionado=[];
       this.turnosSelecionado=this.turnos;
-
     }else{
 
     }
@@ -345,7 +357,11 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
       peso,
       temperatura,
       pesionAlta,
-      presionBaja
+      presionBaja,
+      datoDinamicoUnoClave,
+      datoDinamicoUnoValor,
+      datoDinamicoDosClave,
+      datoDinamicoDosValor
     }=this.historialTurnoForm.getRawValue();
     try{
       if(this.turnoSeleccionado){
@@ -363,6 +379,14 @@ export class TablaTurnosComponent implements OnInit ,OnChanges {
               precionAlta:pesionAlta,
               precionBaja:presionBaja,
             },
+            datodinamicoUno:{
+              clave:datoDinamicoUnoClave,
+              valor:datoDinamicoUnoValor
+            },
+            datodinamicoDos:{
+              clave:datoDinamicoDosClave,
+              valor:datoDinamicoDosValor
+            }
           },
         };
         console.log('EstaCompleto');

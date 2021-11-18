@@ -25,5 +25,13 @@ export class Turno{
       precionBaja:number;
 
     }
+    datodinamicoUno?:{
+      clave:string;
+      valor:string;
+    }
+    datodinamicoDos?:{
+      clave:string;
+      valor:string;
+    }
   }
 }
