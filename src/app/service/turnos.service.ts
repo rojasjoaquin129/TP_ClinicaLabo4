@@ -21,6 +21,32 @@ export class TurnosService {
    }
 
 
+   async getTurnosAceptados(){
+    let turnos :Array<any> = new Array<any>();
+    let turnosUfs= await this.turnosCollection.ref.where("estado","!=", "disponible").where("estado","!=","cancelado").get();
+    turnosUfs.docs.map(function(x){
+      turnos.push(x.data());
+    });
+    console.log("turnos::");
+
+    console.log(turnos);
+    return turnos;
+   }
+
+   async getTurnosByEstadoYPeriodo(estado:string){
+
+
+    let turnos :Array<any> = new Array<any>();
+    let turnosUfs =  await this.turnosCollection.ref.where("estado","==",estado).get();
+
+    turnosUfs.docs.map(function(x){
+      turnos.push(x.data());
+    });
+    console.log("turnos::");
+
+    console.log(turnos);
+    return turnos;
+  }
 
 
   public async traerTurnosPorEmail({email,role}:Props){

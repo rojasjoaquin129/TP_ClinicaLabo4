@@ -104,7 +104,7 @@
           style="flex: 1"
           *ngIf="!turno.paciente"
         >
-          <h6 class="my-0">Turno {{ this.formatStatus(turno.estado) }}</h6>
+          <h6 class="my-0">Turno {{ turno.estado | estadoTurno }}</h6>
         </div>
 
         <!-- Buttons -->

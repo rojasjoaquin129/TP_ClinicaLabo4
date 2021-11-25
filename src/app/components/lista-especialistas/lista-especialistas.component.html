@@ -1,9 +1,9 @@
 <app-navbar></app-navbar>
 <div @enterState class="container py-4">
 <div class="card-deck text-center p-3 "  >
-  <div class="card m-3 esto"
+  <div  class="card m-3 esto"
    *ngFor="let especialista of listaEspecialista" style="width: 18rem;">
-    <img class="card-img-top" (click)="llevarPaciente(especialista)" [src]="especialista.fotoUno" alt="Card image cap">
+    <img appAgrandar class="card-img-top" (click)="llevarPaciente(especialista)" [src]="especialista.fotoUno" alt="Card image cap">
     <div class="card-body">
       <p class="card-text text-center">{{especialista.nombre}} {{especialista.apellido}}</p>
       <div class="row">

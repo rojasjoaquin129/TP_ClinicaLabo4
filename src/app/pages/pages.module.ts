@@ -17,6 +17,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartistModule } from 'ng-chartist';
 PdfMakeWrapper.setFonts(pdfFonts);
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     ComponentesModule,
     RegistrosModule,
     ReactiveFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ChartistModule
   ]
 })
 export class PagesModule { }

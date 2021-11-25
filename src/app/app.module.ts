@@ -11,9 +11,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
+
+
+
   ],
   imports: [
     BrowserModule,

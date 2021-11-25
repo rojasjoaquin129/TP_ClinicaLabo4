@@ -17,6 +17,16 @@ import { TablaTurnosComponent } from './tabla-turnos/tabla-turnos.component';
 import { ProfecionalesComponent } from './profecionales/profecionales.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardsListaComponent } from './cards-lista/cards-lista.component';
+import { TurnosMedicoFinalizadosComponent } from './turnos-medico-finalizados/turnos-medico-finalizados.component';
+import { TurnosPorDiaComponent } from './turnos-por-dia/turnos-por-dia.component';
+import { TurnosPorEspecialidadComponent } from './turnos-por-especialidad/turnos-por-especialidad.component';
+import { ChartistModule } from 'ng-chartist';
+import { TurnosMedicoSolicitadosComponent } from './turnos-medico-solicitados/turnos-medico-solicitados.component';
+import { EntradasComponent } from './entradas/entradas.component';
+import { EstadoTurnoPipe } from '../pipes/estado-turno.pipe';
+import { FechaPipe } from '../pipes/fecha.pipe';
+import { AgrandarDirective } from '../directives/agrandar.directive';
+import { PasarCursorDirective } from '../directives/pasar-cursor.directive';
 
 
 
@@ -38,13 +48,24 @@ import { CardsListaComponent } from './cards-lista/cards-lista.component';
     TablaTurnosComponent,
     ProfecionalesComponent,
     CardsListaComponent,
+    TurnosMedicoFinalizadosComponent,
+    TurnosPorDiaComponent,
+    TurnosPorEspecialidadComponent,
+    TurnosMedicoSolicitadosComponent,
+    EntradasComponent,
+    EstadoTurnoPipe,
+    FechaPipe,
+    AgrandarDirective,
+    PasarCursorDirective,
      ],
   imports: [
     BrowserAnimationsModule,
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartistModule,
+
   ],
   exports: [
     NavbarComponent,
@@ -53,7 +74,13 @@ import { CardsListaComponent } from './cards-lista/cards-lista.component';
     FiltroDoctorComponent,
     ListaHorariosComponent,
     TablaTurnosComponent,
-    CardsListaComponent
+    CardsListaComponent,
+    TurnosPorEspecialidadComponent,
+    TurnosMedicoFinalizadosComponent,
+    TurnosMedicoSolicitadosComponent,
+    TurnosPorDiaComponent,
+    EntradasComponent
+
   ]
 })
 export class ComponentesModule { }

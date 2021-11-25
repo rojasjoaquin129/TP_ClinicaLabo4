@@ -11,6 +11,7 @@ import Swal from 'sweetalert2'
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Ingreso } from '../classes/Ingresos';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,10 +22,12 @@ export class AuthService {
   public listaEspecialista:Especialistas[]=[];
   public listaPacientes:Pacientes[]=[];
   public listaAdministradores:Administradores[]=[];
+
   public listaEs:any;
   usuario:any;
   tipo:any;
   public usuarioEntero:any;
+  dbIngresosRef:AngularFirestoreCollection<any>;
   PacientesRef:AngularFirestoreCollection<Pacientes>;
   EspecialistasRef:AngularFirestoreCollection<Especialidad>;
   AdministradoresRef:AngularFirestoreCollection<Administradores>;
@@ -33,7 +36,7 @@ export class AuthService {
               private router:Router,
               public db:AngularFirestore,
               public storange: AngularFireStorage) {
-
+                this.dbIngresosRef= this.db.collection("ingresos");
                 this.EspecialidadesRef=this.db.collection('especialidades');
                 this.AdministradoresRef=this.db.collection('administradores');
                 this.EspecialistasRef=this.db.collection('especialistas');
@@ -45,6 +48,12 @@ export class AuthService {
                 this.afAuth.authState.subscribe((user:any)=>{
                   if(user){
                     this.usuarioEntero=user._delegate.email;
+                    const ingreso:Ingreso={
+                      email:this.usuarioEntero,
+                      fecha:new Date().toLocaleDateString(),
+                      hora:new Date().toLocaleTimeString()
+                    }
+                    this.addIngreso(ingreso);
                     console.log(this.usuarioEntero);
                   }
                 });
@@ -93,6 +102,29 @@ export class AuthService {
           })
         )
       );
+  }
+
+  async getIngresos(){
+    let ingresos = await this.dbIngresosRef.ref.get();
+
+    let listado:Array<any> = new Array<any>();
+    let aux:Array<any>=new Array<any>();
+    let ingreso:Ingreso;
+
+    ingresos.docs.map(function(x){
+        aux.push(x.data());
+    });
+    let dia:Date;
+
+    aux.forEach(element => {
+      ingreso=new Ingreso();
+      dia=new Date(element.fechaacceso.seconds * 1000);
+      ingreso.email=element.email;
+      ingreso.fecha = dia.getDate() + "/" + Number(dia.getMonth()+1) + "/" + dia.getFullYear();
+      ingreso.hora= dia.getHours() + ":" + dia.getMinutes();
+      listado.push(ingreso);
+    });
+    return listado;
   }
 
 
@@ -187,6 +219,10 @@ export class AuthService {
     traerTodoAdmin(){
       return this.AdministradoresRef.valueChanges() as Observable<Administradores[]>
     }
+
+    traerIngresos(){
+      return this.dbIngresosRef.valueChanges()as Observable<Ingreso[]>
+    }
   //esto dos traen especialistas y pacientes
   //media hora buscando estos datos , mamita querida !!! EMPEZA A COMENTAR EL CODIGO CABEZON!!! de mi para mi
 
@@ -215,7 +251,9 @@ export class AuthService {
   addAdministrador(administrador:Administradores){
     this.AdministradoresRef.add({...administrador});
   }
-
+  addIngreso(ingreso:any){
+    this.dbIngresosRef.add({...ingreso});
+  }
   mensajeAprobado(text:string){
     Swal.fire({
       title: "Usuario Registrado",
@@ -231,8 +269,8 @@ export class AuthService {
 
 
   subirImagen(ruta: string, data: any){
-    return this.storange.ref(ruta).putString(data,'data_url').then(datas =>{
-       datas.ref.getDownloadURL().then(x => x);
+    return this.storange.ref(ruta).putString(data,'data_url').then((datas:any) =>{
+       datas.ref.getDownloadURL().then((x:any) => x);
     });
   }
 

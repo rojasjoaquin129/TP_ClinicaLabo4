@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import{trigger,style,transition,animate, state} from'@angular/animations'
+import{trigger,style,transition,animate, state} from'@angular/animations';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -34,6 +35,7 @@ import{trigger,style,transition,animate, state} from'@angular/animations'
 export class HomeComponent implements OnInit {
   usuario:any;
   tipo:any;
+  flag='';
   constructor() { }
 
   ngOnInit(): void {

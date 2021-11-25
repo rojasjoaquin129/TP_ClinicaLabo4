@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/classes/usuario';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2'
 import { AuthService } from 'src/app/service/auth.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { toRelativeImport } from '@angular/compiler-cli/src/ngtsc/file_system';
 import{trigger,style,transition,animate, state} from'@angular/animations'
 @Component({
@@ -47,7 +48,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
     private fb:FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private db: AngularFirestore
    ) {
 
      this.loginFrom=this.fb.group({
@@ -120,13 +122,16 @@ export class LoginComponent implements OnInit {
       this.authService.singIn(email,password).then(user=>{
         if(localStorage.getItem('tipo')==='especialista'){
           if(user.user?.emailVerified && usuario.enabled){
+
             this.router.navigate(['home']);
+
           }else{
             this.mensajeError('Especialista no  valido su email o no lo verifico el administrador');
             this.loginFrom.reset();
           }
         }else{
           if(user.user?.emailVerified){
+
             this.router.navigate(['home']);
           }else{
             this.mensajeError('no valido su email');

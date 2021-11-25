@@ -6,11 +6,34 @@
       <h2>Graficos</h2>
     </div>
     <div class="col text-center">
-      <button class="btn btn-lg btn-primary ml-6 "  >Entradas</button>
-      <button class="btn btn-lg btn-success ml-6 "  >Turno Por Especialidad</button>
-      <button class="btn btn-lg btn-info ml-6 "  >Turno Por Dia</button>
-      <button class="btn btn-lg btn-warning ml-6 "  >Cantidad de turnos solicitado</button>
-      <button class="btn btn-lg btn-danger ml-6 "  >Cantidad de turnos finalizados</button>
+      <button class="btn btn-lg btn-primary ml-2 " (click)="flag='Entrada'"  >Entradas</button>
+      <button class="btn btn-lg btn-success ml-2 " (click)="flag='turnoEspecialiad'"  >Turno Por Especialidad</button>
+      <button class="btn btn-lg btn-info ml-5 "  (click)="flag='TurnoDia'">Turno Por Dia</button>
+      <button class="btn btn-lg btn-warning ml-5 " (click)="flag='turnoSolicitado'" >Cantidad de turnos solicitado</button>
+      <button class="btn btn-lg btn-danger ml-5 "  (click)="flag='turnoFinalizado'">Cantidad de turnos finalizados</button>
     </div>
+
+    <div>
+      <div class="card mt-5" *ngIf="flag=='turnoEspecialiad'">
+        <app-turnos-por-especialidad></app-turnos-por-especialidad>
+      </div>
+
+      <div class="card mt-5" *ngIf="flag=='turnoFinalizado'">
+        <app-turnos-medico-finalizados></app-turnos-medico-finalizados>
+      </div>
+
+      <div class="card mt-5" *ngIf="flag=='turnoSolicitado'">
+        <app-turnos-medico-solicitados></app-turnos-medico-solicitados>
+      </div>
+
+      <div class="card mt-5" *ngIf="flag=='TurnoDia'">
+        <app-turnos-por-dia></app-turnos-por-dia>
+      </div>
+      <div class="card mt-5" *ngIf="flag=='Entrada'">
+        <app-entradas></app-entradas>
+      </div>
+    </div>
+
+
   </div>
 </div>

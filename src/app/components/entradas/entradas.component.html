@@ -1,0 +1,24 @@
+<div  class="container">
+  <div class="row mt-2 " style="width: 100%;">
+      <button class="btn btn-primary"   (click)="exportExcel()" style="margin: 10px;">Descargar XML</button>
+  </div>
+  <div class="row mt-4 " style="width: 100%;" >
+      <table id='excel-table' class="table table-hover table-bordered animated fadeIn faster ld ld-slide-ttb-in" style="margin:10px">
+          <thead>
+              <tr class="table-primary text-center">
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>E-mail Usuario</th>
+              </tr>
+          </thead>
+          <tbody >
+              <tr appPasarCursor class="table-warning text-center" *ngFor="let ingreso of listaIngresos" >
+                  <td>{{ingreso.fecha}} </td>
+                  <td>{{ingreso.hora}} </td>
+                  <th scope="row">{{ingreso.email}}</th>
+
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
